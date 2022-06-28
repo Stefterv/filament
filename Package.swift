@@ -149,7 +149,7 @@ let package = Package(
             ],
             path: "ios/Sources",
             cxxSettings: [
-                .headerSearchPath("out/ios-release/filament/include")
+                .headerSearchPath("../../out/ios-release/filament/include")
             ]
         ),
     ],
