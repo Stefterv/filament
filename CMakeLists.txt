@@ -729,3 +729,20 @@ endif()
 if (NOT CMAKE_CROSSCOMPILING)
     export(TARGETS matc cmgen filamesh mipgen resgen uberz glslminifier FILE ${IMPORT_EXECUTABLES})
 endif()
+
+# TODO
+# - Only run these settings when applicable
+# - Make dynamic
+set_target_properties(
+    filament gltfio_core filaflat ibl image backend filameshio utils uberzlib shaders viewer vkshaders zstd basis_transcoder camutils basis_transcoder camutils civetweb dracodec filabridge filamat filamat_lite filament-iblprefilter geometry ibl-lite ktxreader meshoptimizer shaders smol-v stb uberzlib viewer vkshaders zstd
+    PROPERTIES 
+    FRAMEWORK TRUE
+)
+set_target_properties(
+    gltfio_core 
+    PROPERTIES OUTPUT_NAME "gltfio"
+)
+set_target_properties(
+    uberzlib 
+    PROPERTIES OUTPUT_NAME "uberz"
+)
