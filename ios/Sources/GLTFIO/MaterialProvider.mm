@@ -20,7 +20,7 @@
 + (instancetype) createUbershaderLoader: (Engine*) engine{
     auto eng = (filament::Engine*)engine.ref;
     
-    auto loader = gltfio::createUbershaderLoader(eng);
-    return [[MaterialProvider alloc] initWithRef:loader];
+//    auto loader = gltfio::createUbershaderLoader(eng);
+    return [[MaterialProvider alloc] initWithRef:nil];
 }
 @end
