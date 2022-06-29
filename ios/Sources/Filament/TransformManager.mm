@@ -25,7 +25,7 @@
     return self;
 }
 - (instancetype) setTransform: (Instance*)instance :(simd_float4x4)geometry{
-    self->ref->setTransform(*(filament::TransformManager::Instance*)instance.ref, [Mat4fHelper fromSimd:geometry]);
+//    self->ref->setTransform(*(filament::TransformManager::Instance*)instance.ref, [Mat4fHelper fromSimd:geometry]);
     return self;
 }
 - (Instance*) getInstance: (Entity*)entity{

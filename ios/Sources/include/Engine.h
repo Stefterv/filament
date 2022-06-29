@@ -19,7 +19,6 @@
 #ifndef Engine_h
 #define Engine_h
 
-NS_SWIFT_NAME(Filament.Engine)
 @interface Engine : FSObject
 NS_ASSUME_NONNULL_BEGIN
 
