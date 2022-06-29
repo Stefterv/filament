@@ -14,109 +14,109 @@ let package = Package(
     ],
     targets: [
         .binaryTarget(
-                   name: "backend",
-                   path: "out/ios-release/filament/lib/universal/backend.xcframework"
-               ),
+            name: "backend",
+            path: "out/ios-release/filament/lib/universal/backend.xcframework"
+        ),
         .binaryTarget(
-                   name: "basis_transcoder",
-                   path: "out/ios-release/filament/lib/universal/basis_transcoder.xcframework"
-               ),
+            name: "basis_transcoder",
+            path: "out/ios-release/filament/lib/universal/basis_transcoder.xcframework"
+        ),
         .binaryTarget(
-                   name: "camutils",
-                   path: "out/ios-release/filament/lib/universal/camutils.xcframework"
-               ),
+            name: "camutils",
+            path: "out/ios-release/filament/lib/universal/camutils.xcframework"
+        ),
         .binaryTarget(
-                   name: "civetweb",
-                   path: "out/ios-release/filament/lib/universal/civetweb.xcframework"
-               ),
+            name: "civetweb",
+            path: "out/ios-release/filament/lib/universal/civetweb.xcframework"
+        ),
         .binaryTarget(
-                   name: "dracodec",
-                   path: "out/ios-release/filament/lib/universal/dracodec.xcframework"
-               ),
+            name: "dracodec",
+            path: "out/ios-release/filament/lib/universal/dracodec.xcframework"
+        ),
         .binaryTarget(
-                   name: "filabridge",
-                   path: "out/ios-release/filament/lib/universal/filabridge.xcframework"
-               ),
+            name: "filabridge",
+            path: "out/ios-release/filament/lib/universal/filabridge.xcframework"
+        ),
         .binaryTarget(
-                   name: "filaflat",
-                   path: "out/ios-release/filament/lib/universal/filaflat.xcframework"
-               ),
+            name: "filaflat",
+            path: "out/ios-release/filament/lib/universal/filaflat.xcframework"
+        ),
         .binaryTarget(
-                   name: "filamat_lite",
-                   path: "out/ios-release/filament/lib/universal/filamat_lite.xcframework"
-               ),
+            name: "filamat_lite",
+            path: "out/ios-release/filament/lib/universal/filamat_lite.xcframework"
+        ),
         .binaryTarget(
-                   name: "filament-iblprefilter",
-                   path: "out/ios-release/filament/lib/universal/filament-iblprefilter.xcframework"
-               ),
+            name: "filament-iblprefilter",
+            path: "out/ios-release/filament/lib/universal/filament-iblprefilter.xcframework"
+        ),
         .binaryTarget(
-                   name: "filament",
-                   path: "out/ios-release/filament/lib/universal/filament.xcframework"
-               ),
+            name: "filament",
+            path: "out/ios-release/filament/lib/universal/filament.xcframework"
+        ),
         .binaryTarget(
-                   name: "filameshio",
-                   path: "out/ios-release/filament/lib/universal/filameshio.xcframework"
-               ),
+            name: "filameshio",
+            path: "out/ios-release/filament/lib/universal/filameshio.xcframework"
+        ),
         .binaryTarget(
-                   name: "geometry",
-                   path: "out/ios-release/filament/lib/universal/geometry.xcframework"
-               ),
+            name: "geometry",
+            path: "out/ios-release/filament/lib/universal/geometry.xcframework"
+        ),
         .binaryTarget(
-                   name: "gltfio",
-                   path: "out/ios-release/filament/lib/universal/gltfio.xcframework"
-               ),
+            name: "gltfio",
+            path: "out/ios-release/filament/lib/universal/gltfio.xcframework"
+        ),
         .binaryTarget(
-                   name: "ibl-lite",
-                   path: "out/ios-release/filament/lib/universal/ibl-lite.xcframework"
-               ),
+            name: "ibl-lite",
+            path: "out/ios-release/filament/lib/universal/ibl-lite.xcframework"
+        ),
         .binaryTarget(
-                   name: "ibl",
-                   path: "out/ios-release/filament/lib/universal/ibl.xcframework"
-               ),
+            name: "ibl",
+            path: "out/ios-release/filament/lib/universal/ibl.xcframework"
+        ),
         .binaryTarget(
-                   name: "image",
-                   path: "out/ios-release/filament/lib/universal/image.xcframework"
-               ),
+            name: "image",
+            path: "out/ios-release/filament/lib/universal/image.xcframework"
+        ),
         .binaryTarget(
-                   name: "ktxreader",
-                   path: "out/ios-release/filament/lib/universal/ktxreader.xcframework"
-               ),
+            name: "ktxreader",
+            path: "out/ios-release/filament/lib/universal/ktxreader.xcframework"
+        ),
         .binaryTarget(
-                   name: "meshoptimizer",
-                   path: "out/ios-release/filament/lib/universal/meshoptimizer.xcframework"
-               ),
+            name: "meshoptimizer",
+            path: "out/ios-release/filament/lib/universal/meshoptimizer.xcframework"
+        ),
         .binaryTarget(
-                   name: "shaders",
-                   path: "out/ios-release/filament/lib/universal/shaders.xcframework"
-               ),
+            name: "shaders",
+            path: "out/ios-release/filament/lib/universal/shaders.xcframework"
+        ),
         .binaryTarget(
-                   name: "smol-v",
-                   path: "out/ios-release/filament/lib/universal/smol-v.xcframework"
-               ),
+            name: "smol-v",
+            path: "out/ios-release/filament/lib/universal/smol-v.xcframework"
+        ),
         .binaryTarget(
-                   name: "stb",
-                   path: "out/ios-release/filament/lib/universal/stb.xcframework"
-               ),
+            name: "stb",
+            path: "out/ios-release/filament/lib/universal/stb.xcframework"
+        ),
         .binaryTarget(
-                   name: "uberz",
-                   path: "out/ios-release/filament/lib/universal/uberz.xcframework"
-               ),
+            name: "uberz",
+            path: "out/ios-release/filament/lib/universal/uberz.xcframework"
+        ),
         .binaryTarget(
-                   name: "utils",
-                   path: "out/ios-release/filament/lib/universal/utils.xcframework"
-               ),
+            name: "utils",
+            path: "out/ios-release/filament/lib/universal/utils.xcframework"
+        ),
         .binaryTarget(
-                   name: "viewer",
-                   path: "out/ios-release/filament/lib/universal/viewer.xcframework"
-               ),
+            name: "viewer",
+            path: "out/ios-release/filament/lib/universal/viewer.xcframework"
+        ),
         .binaryTarget(
-                   name: "vkshaders",
-                   path: "out/ios-release/filament/lib/universal/vkshaders.xcframework"
-               ),
+            name: "vkshaders",
+            path: "out/ios-release/filament/lib/universal/vkshaders.xcframework"
+        ),
         .binaryTarget(
-                   name: "zstd",
-                   path: "out/ios-release/filament/lib/universal/zstd.xcframework"
-               ),
+            name: "zstd",
+            path: "out/ios-release/filament/lib/universal/zstd.xcframework"
+        ),
         .target(
             name: "Filament",
             dependencies: [
