@@ -1,5 +1,5 @@
 //
-//  Engine.m
+//  Engine.mm
 //  
 //
 //  Created by Stef Tervelde on 29.06.22.
@@ -13,19 +13,16 @@
 
 + (instancetype) create{
     auto nativeEngine = filament::Engine::create();
-    auto engine = [[Engine alloc] init:nativeEngine];
-    engine->nativeEngine = nativeEngine;
-    return engine;
+    return [[Engine alloc] init:nativeEngine];;
 }
 + (instancetype) create: (Backend) backend{
-    auto nativeEngine = filament::Engine::create((filament::Engine::Backend)backend);
-    auto engine = [[Engine alloc] init:nativeEngine];
-    engine->nativeEngine = nativeEngine;
-    return engine;
+    auto nativeEngine = filament::Engine::create( (filament::Engine::Backend) backend);
+    return [[Engine alloc] init:nativeEngine];;
 }
 
 - (id) init: (void *)engine{
     self->_engine = engine;
+    self->nativeEngine = (filament::Engine*) engine;
     return self;
 }
 
@@ -33,10 +30,49 @@
     filament::Engine::destroy(engine->nativeEngine);
 }
 
-- (Renderer*) createRenderer{
-    auto renderer = nativeEngine->createRenderer();
-    return [[Renderer alloc] init:renderer];
+- (void) dealloc{
+    filament::Engine::destroy(nativeEngine);
 }
 
+- (Backend) getBackend{
+    return (Backend) nativeEngine->getBackend();
+}
+
+- (SwapChain*) createSwapChain: (CALayer*)layer{
+    auto swapchain = nativeEngine->createSwapChain( (__bridge void*) layer);
+    return [[SwapChain alloc] init:swapchain];
+}
+
+- (SwapChain*) createSwapChain:(uint32_t)width :(uint32_t)height{
+    auto swapchain = nativeEngine->createSwapChain(width, height);
+    return [[SwapChain alloc] init:swapchain];
+}
+
+- (Renderer*) createRenderer{
+    auto renderer = nativeEngine->createRenderer();
+    return [[Renderer alloc] init: renderer];
+}
+
+- (void) destroyRenderer:(Renderer *)renderer{
+    nativeEngine->destroy( (filament::Renderer*) renderer.renderer);
+}
+
+- (Scene*) createScene{
+    auto scene = nativeEngine->createScene();
+    return [[Scene alloc] init: scene];
+}
+
+- (void) destroyScene:(Scene *)scene{
+    nativeEngine->destroy( (filament::Scene*) scene.scene);
+}
+
+- (View*) createView{
+    auto view = nativeEngine->createView();
+    return [[View alloc] init: view];
+}
+
+- (void) destroyView:(View *)view{
+    nativeEngine->destroy( (filament::View*) view.view);
+}
 
 @end

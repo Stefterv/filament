@@ -7,8 +7,13 @@
 #ifndef Engine_h
 #define Engine_h
 
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+
 #import "Renderer.h"
+#import "Scene.h"
+#import "View.h"
+#import "SwapChain.h"
 
 typedef NS_ENUM(NSInteger, Backend) {
     Default = 0,
@@ -76,6 +81,11 @@ typedef NS_ENUM(NSInteger, Backend) {
 
 
 @interface Engine : NSObject
+
+@property (nonatomic, readonly, nonnull) void* engine NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");
+- (nonnull id) init: (nonnull void*) engine NS_SWIFT_UNAVAILABLE("Create a new engine with Engine.create");
+- (nonnull id) init NS_UNAVAILABLE;
+
 /**
  * Creates an instance of Engine using the default Backend
  * This method is one of the few thread-safe methods.
@@ -126,9 +136,39 @@ typedef NS_ENUM(NSInteger, Backend) {
  */
 + (void)destroy: (nonnull Engine*)engine;
 
-@property (nonatomic, readonly, nonnull) void* engine NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");
-- (nonnull id) init: (nonnull void*) engine NS_SWIFT_UNAVAILABLE("Create a new engine with Engine.create");
-- (nonnull id) init NS_UNAVAILABLE;
+/**
+ * @return the backend used by this <code>Engine</code>
+ */
+- (Backend) getBackend;
+
+/**
+ * Creates an opaque {@link SwapChain} from the given OS native window handle.
+ *
+ * @param layer on iOS, <b>must be</b> an instance of {@link CALayer}
+ *
+ * @return a newly created {@link SwapChain} object
+ *
+ * @exception IllegalStateException can be thrown if the SwapChain couldn't be created
+ */
+- (nonnull SwapChain*) createSwapChain: (nonnull CALayer*) layer;
+
+/**
+ * Creates a headless {@link SwapChain}
+ *
+ * @param width  width of the rendering buffer
+ * @param height height of the rendering buffer
+ * @param flags  configuration flags, see {@link SwapChain}
+ *
+ * @return a newly created {@link SwapChain} object
+ *
+ * @exception IllegalStateException can be thrown if the SwapChain couldn't be created
+ *
+ * @see SwapChain#CONFIG_DEFAULT
+ * @see SwapChain#CONFIG_TRANSPARENT
+ * @see SwapChain#CONFIG_READABLE
+*/
+
+- (nonnull SwapChain*) createSwapChain: (uint32_t) width :(uint32_t) height;
 
 /**
  * Creates a {\link Renderer}.
@@ -136,6 +176,37 @@ typedef NS_ENUM(NSInteger, Backend) {
  * \exception IllegalStateException can be thrown if the {\link Renderer} couldn't be created
  */
 - (nonnull Renderer*) createRenderer;
+/**
+ * Destroys a {@link Renderer} and frees all its associated resources.
+ * @param renderer the {@link Renderer} to destroy
+ */
+- (void) destroyRenderer: (nonnull Renderer*) renderer;
+
+/**
+ * Creates a {@link Scene}.
+ * @return a newly created {@link Scene}
+ * @exception IllegalStateException can be thrown if the {@link Scene} couldn't be created
+ */
+- (nonnull Scene*) createScene;
+
+/**
+ * Destroys a {@link Scene} and frees all its associated resources.
+ * @param scene the {@link Scene} to destroy
+ */
+- (void) destroyScene: (nonnull Scene*) scene;
+
+/**
+ * Creates a {@link View}.
+ * @return a newly created {@link View}
+ * @exception IllegalStateException can be thrown if the {@link View} couldn't be created
+ */
+- (nonnull View*) createView;
+
+/**
+ * Destroys a {@link View} and frees all its associated resources.
+ * @param view the {@link View} to destroy
+ */
+- (void) destroyView: (nonnull View*) view;
 
 @end
 

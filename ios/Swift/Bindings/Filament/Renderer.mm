@@ -1,5 +1,5 @@
 //
-//  Renderer.m
+//  Renderer.mm
 //  
 //
 //  Created by Stef Tervelde on 29.06.22.
@@ -14,7 +14,7 @@
 
 - (id) init:(void *)renderer{
     self->_renderer = renderer;
-    self->nativeRenderer = (filament::Renderer*)renderer;
+    self->nativeRenderer = (filament::Renderer*) renderer;
     return self;
 }
 
