@@ -48,6 +48,8 @@ function print_help {
     echo "        Build arm64/x86_64 universal libraries."
     echo "        For iOS, this builds universal binaries for devices and the simulator (implies -s)."
     echo "        For macOS, this builds universal binaries for both Apple silicon and Intel-based Macs."
+    echo "    -S"
+    echo "        Build .xcframework universal libraries for Swift pacakage"
     echo "    -w"
     echo "        Build Web documents (compiles .md.html files to .html)."
     echo "    -k sample1,sample2,..."
@@ -160,6 +162,7 @@ MATDBG_GRADLE_OPTION=""
 
 IOS_BUILD_SIMULATOR=false
 BUILD_UNIVERSAL_LIBRARIES=false
+BUILD_FRAMEWORKS=false
 
 BUILD_GENERATOR=Ninja
 BUILD_COMMAND=ninja
@@ -616,10 +619,17 @@ function build_ios {
         fi
 
         if [[ "${BUILD_UNIVERSAL_LIBRARIES}" == "true" ]]; then
+            
             build/ios/create-universal-libs.sh \
                 -o out/ios-debug/filament/lib/universal \
                 out/ios-debug/filament/lib/arm64 \
                 out/ios-debug/filament/lib/x86_64
+            
+            rm -rf out/ios-debug/filament/lib/arm64
+            rm -rf out/ios-debug/filament/lib/x86_64
+        fi
+        if [[ "${BUILD_FRAMEWORKS}" == "true" ]]; then
+            rm -rf out/ios-debug/filament/lib/universal
             build/ios/create-universal-frameworks.sh \
                 -o out/ios-debug/filament/lib/universal \
                 out/ios-debug/filament/lib/arm64 \
@@ -642,6 +652,12 @@ function build_ios {
                 -o out/ios-release/filament/lib/universal \
                 out/ios-release/filament/lib/arm64 \
                 out/ios-release/filament/lib/x86_64
+            rm -rf out/ios-release/filament/lib/arm64
+            rm -rf out/ios-release/filament/lib/x86_64
+        fi
+
+        if [[ "${BUILD_FRAMEWORKS}" == "true" ]]; then
+            rm -rf out/ios-release/filament/lib/universal
             build/ios/create-universal-frameworks.sh \
                 -o out/ios-release/filament/lib/universal \
                 out/ios-release/filament/lib/arm64 \
@@ -743,7 +759,7 @@ function run_tests {
 
 pushd "$(dirname "$0")" > /dev/null
 
-while getopts ":hacCfijmp:q:uvslwtdk:" opt; do
+while getopts ":hacCfijmp:q:uvslSwtdk:" opt; do
     case ${opt} in
         h)
             print_help
@@ -854,6 +870,10 @@ while getopts ":hacCfijmp:q:uvslwtdk:" opt; do
             IOS_BUILD_SIMULATOR=true
             BUILD_UNIVERSAL_LIBRARIES=true
             echo "Building universal libraries."
+            ;;
+        S)
+            BUILD_FRAMEWORKS=true
+            echo "Building universal xcframeworks"
             ;;
         w)
             ISSUE_WEB_DOCS=true
