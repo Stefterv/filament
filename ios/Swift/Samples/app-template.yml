@@ -12,7 +12,8 @@ targetTemplates:
       - path: ${target_name}/Materials
         buildPhase: none
         optional: true
-
+    dependencies:
+      - package: Filament
     settings:
       base:
         # This allows users to not have to specify a unique bundle ID when building the sample apps.

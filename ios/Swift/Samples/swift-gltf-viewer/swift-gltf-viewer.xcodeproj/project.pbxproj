@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00C8E2B5BCF9323709FA1220 /* default_env_skybox.ktx in Resources */ = {isa = PBXBuildFile; fileRef = EBE953B8A4FE15E88A724740 /* default_env_skybox.ktx */; };
 		179BA9B8D59D037EAFA199D1 /* GltfViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B361592413C5A70801CA0010 /* GltfViewer.swift */; };
+		C0EF83A294F7FABD7ECF64C7 /* Filament in Frameworks */ = {isa = PBXBuildFile; productRef = 5393C2E4DB16165F6F3F82AF /* Filament */; };
 		C6570EA6AC40E54644E3A62B /* default_env_ibl.ktx in Resources */ = {isa = PBXBuildFile; fileRef = 2E44B28A9B8A9EDB38C340EE /* default_env_ibl.ktx */; };
 		F8EA3D8EEF0E98DA0CA10F3A /* BusterDrone in Resources */ = {isa = PBXBuildFile; fileRef = C9A34B249A16131A4A8765F5 /* BusterDrone */; };
 /* End PBXBuildFile section */
@@ -21,6 +22,17 @@
 		EBE953B8A4FE15E88A724740 /* default_env_skybox.ktx */ = {isa = PBXFileReference; path = default_env_skybox.ktx; sourceTree = "<group>"; };
 		F9D2D2F882501E39364C9746 /* filament */ = {isa = PBXFileReference; lastKnownFileType = folder; name = filament; path = ../../../..; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DB81ACD8246F83E9EFC5E81E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0EF83A294F7FABD7ECF64C7 /* Filament in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0DAC08AB23A6F84F1C654839 /* Packages */ = {
@@ -78,12 +90,16 @@
 				B9439C4275247A79003CBC87 /* Build Resources */,
 				4E22D76A1E882DEFF2074435 /* Sources */,
 				11F867C98CE75A19EA450AA5 /* Resources */,
+				DB81ACD8246F83E9EFC5E81E /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "swift-gltf-viewer";
+			packageProductDependencies = (
+				5393C2E4DB16165F6F3F82AF /* Filament */,
+			);
 			productName = "swift-gltf-viewer";
 			productReference = 891B249E0A448551F25056F8 /* swift-gltf-viewer.app */;
 			productType = "com.apple.product-type.application";
@@ -339,6 +355,13 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5393C2E4DB16165F6F3F82AF /* Filament */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Filament;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 860FC11A8622A5EA6CD8E63F /* Project object */;
 }
