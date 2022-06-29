@@ -46,7 +46,6 @@ bool DictionaryReader::unflatten(ChunkContainer const& container,
         // For now, 1 is the only acceptable compression scheme.
         assert(compressionScheme == 1);
 
-
         uint32_t blobCount;
         if (!unflattener.read(&blobCount)) {
             return false;
@@ -54,11 +53,15 @@ bool DictionaryReader::unflatten(ChunkContainer const& container,
 
         dictionary.reserve(blobCount);
         for (uint32_t i = 0; i < blobCount; i++) {
+            unflattener.skipAlignmentPadding();
+
             const char* compressed;
             size_t compressedSize;
             if (!unflattener.read(&compressed, &compressedSize)) {
                 return false;
             }
+
+            assert_invariant((intptr_t(compressed) % 8) == 0);
 
 #if defined (FILAMENT_DRIVER_SUPPORTS_VULKAN)
             size_t spirvSize = smolv::GetDecodedBufferSize(compressed, compressedSize);
