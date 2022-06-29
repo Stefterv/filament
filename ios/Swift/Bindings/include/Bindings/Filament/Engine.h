@@ -8,6 +8,7 @@
 #define Engine_h
 
 #import <Foundation/Foundation.h>
+#import "Renderer.h"
 
 typedef NS_ENUM(NSInteger, Backend) {
     Default = 0,
@@ -127,6 +128,14 @@ typedef NS_ENUM(NSInteger, Backend) {
 
 @property (nonatomic, readonly, nonnull) void* engine NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");
 - (nonnull id) init: (nonnull void*) engine NS_SWIFT_UNAVAILABLE("Create a new engine with Engine.create");
+- (nonnull id) init NS_UNAVAILABLE;
+
+/**
+ * Creates a {\link Renderer}.
+ * \return a newly created {\link Renderer}
+ * \exception IllegalStateException can be thrown if the {\link Renderer} couldn't be created
+ */
+- (nonnull Renderer*) createRenderer;
 
 @end
 

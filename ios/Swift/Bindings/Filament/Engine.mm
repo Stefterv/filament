@@ -12,7 +12,7 @@
 }
 
 + (instancetype) create{
-    auto nativeEngine = filament::Engine::create(filament::Engine::Backend::METAL);
+    auto nativeEngine = filament::Engine::create();
     auto engine = [[Engine alloc] init:nativeEngine];
     engine->nativeEngine = nativeEngine;
     return engine;
@@ -29,8 +29,13 @@
     return self;
 }
 
-+ (void)destroy: (Engine*)engine{
++ (void) destroy: (Engine*)engine{
     filament::Engine::destroy(engine->nativeEngine);
+}
+
+- (Renderer*) createRenderer{
+    auto renderer = nativeEngine->createRenderer();
+    return [[Renderer alloc] init:renderer];
 }
 
 
