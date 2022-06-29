@@ -102,5 +102,6 @@ for FILE in "${LEADER_PATH}"/*.framework; do
     # TODO: 
     # - Cleanup Existing File
     # - Allow for more than 2 archs
+    # - Fix simulator
     xcodebuild -create-xcframework -framework ${INPUT_FILES[0]} -framework ${INPUT_FILES[1]} -output "${OUTPUT_DIR}/${LIBRARY_NAME/framework/xcframework}"
 done
