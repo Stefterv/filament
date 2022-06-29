@@ -14,6 +14,9 @@
 #import "Scene.h"
 #import "View.h"
 #import "SwapChain.h"
+#import "Camera.h"
+#import "../Utils/Entity.h"
+#import "../Utils/EntityManager.h"
 
 typedef NS_ENUM(NSInteger, Backend) {
     Default = 0,
@@ -171,6 +174,13 @@ typedef NS_ENUM(NSInteger, Backend) {
 - (nonnull SwapChain*) createSwapChain: (uint32_t) width :(uint32_t) height;
 
 /**
+ * Destroys a {@link SwapChain} and frees all its associated resources.
+ * @param swapChain the {@link SwapChain} to destroy
+ */
+
+- (void) destroySwapChain: (nonnull SwapChain*) swapchain;
+
+/**
  * Creates a {\link Renderer}.
  * \return a newly created {\link Renderer}
  * \exception IllegalStateException can be thrown if the {\link Renderer} couldn't be created
@@ -181,6 +191,28 @@ typedef NS_ENUM(NSInteger, Backend) {
  * @param renderer the {@link Renderer} to destroy
  */
 - (void) destroyRenderer: (nonnull Renderer*) renderer;
+
+/**
+ * Creates and adds a {@link Camera} component to a given <code>entity</code>.
+ *
+ * @param entity <code>entity</code> to add the camera component to
+ * @return A newly created {@link Camera}
+ * @exception IllegalStateException can be thrown if the {@link Camera} couldn't be created
+ */
+- (nonnull Camera*) createCamera: (Entity) entity;
+
+
+/**
+ * Returns the Camera component of the given <code>entity</code>.
+ *
+ * @param entity An <code>entity</code>.
+ * @return the Camera component for this entity or null if the entity doesn't have a Camera
+ *         component
+ */
+- (nullable Camera*) getCameraComponent: (Entity) entity;
+
+
+- (void) destroyCameraComponent: (Entity) entity;
 
 /**
  * Creates a {@link Scene}.
@@ -207,6 +239,8 @@ typedef NS_ENUM(NSInteger, Backend) {
  * @param view the {@link View} to destroy
  */
 - (void) destroyView: (nonnull View*) view;
+
+- (nonnull EntityManager*) getEntityManager;
 
 @end
 

@@ -6,6 +6,7 @@
 //
 #import "Bindings/Filament/Engine.h"
 #import <filament/Engine.h>
+#import <utils/Entity.h>
 
 @implementation Engine{
     filament::Engine* nativeEngine;
@@ -48,6 +49,10 @@
     return [[SwapChain alloc] init:swapchain];
 }
 
+- (void) destroySwapChain:(SwapChain *)swapchain{
+    nativeEngine->destroy( (filament::SwapChain*) swapchain.swapchain);
+}
+
 - (Renderer*) createRenderer{
     auto renderer = nativeEngine->createRenderer();
     return [[Renderer alloc] init: renderer];
@@ -55,6 +60,24 @@
 
 - (void) destroyRenderer:(Renderer *)renderer{
     nativeEngine->destroy( (filament::Renderer*) renderer.renderer);
+}
+
+
+- (Camera*) createCamera:(Entity)entity{
+    auto camera = nativeEngine->createCamera(utils::Entity::import(entity));
+    return [[Camera alloc] init:camera];
+}
+
+- (Camera*) getCameraComponent:(Entity)entity{
+    auto camera = nativeEngine->getCameraComponent(utils::Entity::import(entity));
+    if (camera){
+        return [[Camera alloc] init:camera];
+    }
+    return nil;
+}
+
+- (void) destroyCameraComponent:(Entity)entity{
+    nativeEngine->destroyCameraComponent(utils::Entity::import(entity));
 }
 
 - (Scene*) createScene{
@@ -73,6 +96,11 @@
 
 - (void) destroyView:(View *)view{
     nativeEngine->destroy( (filament::View*) view.view);
+}
+
+- (EntityManager*) getEntityManager{
+    auto manager = &nativeEngine->getEntityManager();
+    return [[EntityManager alloc] init: manager];
 }
 
 @end
