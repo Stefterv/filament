@@ -9,6 +9,7 @@
 #ifndef FilamentAsset_h
 #define FilamentAsset_h
 
+NS_SWIFT_NAME(glTFIO.FilamentAsset)
 @interface FilamentAsset : NSObject
 
 @property (nonatomic, readonly, nonnull) void* asset  NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");

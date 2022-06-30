@@ -34,6 +34,7 @@ NS_SWIFT_NAME(Renderer.ClearOptions)
 @property simd_double4 clearColor;
 @property bool clear;
 @property bool discard;
+- (nonnull id) init;
 @end
 
 

@@ -11,6 +11,7 @@
 #ifndef EntityManager_h
 #define EntityManager_h
 
+NS_SWIFT_NAME(Utils.EntityManager)
 @interface EntityManager : NSObject
 
 @property (nonatomic, readonly, nonnull) void* manager NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");

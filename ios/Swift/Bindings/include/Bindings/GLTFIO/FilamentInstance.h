@@ -9,6 +9,7 @@
 #ifndef FilamentInstance_h
 #define FilamentInstance_h
 
+NS_SWIFT_NAME(glTFIO.FilamentInstance)
 @interface FilamentInstance : NSObject
 
 @property (nonatomic, readonly, nonnull) void* instance  NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");

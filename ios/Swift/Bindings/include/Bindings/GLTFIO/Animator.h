@@ -9,6 +9,7 @@
 #ifndef Animator_h
 #define Animator_h
 
+NS_SWIFT_NAME(glTFIO.Animator)
 @interface Animator : NSObject
 
 @property (nonatomic, readonly, nonnull) void* animator  NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");

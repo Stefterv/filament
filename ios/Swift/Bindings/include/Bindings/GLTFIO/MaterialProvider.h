@@ -9,6 +9,7 @@
 #ifndef MaterialProvider_h
 #define MaterialProvider_h
 
+NS_SWIFT_NAME(glTFIO.MaterialProvider)
 @interface MaterialProvider : NSObject
 
 @property (nonatomic, readonly, nonnull) void* provider  NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");

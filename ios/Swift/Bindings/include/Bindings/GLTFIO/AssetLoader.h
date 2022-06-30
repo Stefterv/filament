@@ -9,6 +9,7 @@
 #ifndef AssetLoader_h
 #define AssetLoader_h
 
+NS_SWIFT_NAME(glTFIO.AssetLoader)
 @interface AssetLoader : NSObject
 
 @property (nonatomic, readonly, nonnull) void* loader  NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");

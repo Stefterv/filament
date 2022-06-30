@@ -9,6 +9,7 @@
 #ifndef ResourceLoader_h
 #define ResourceLoader_h
 
+NS_SWIFT_NAME(glTFIO.ResourceLoader)
 @interface ResourceLoader : NSObject
 
 @property (nonatomic, readonly, nonnull) void* loader  NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");
