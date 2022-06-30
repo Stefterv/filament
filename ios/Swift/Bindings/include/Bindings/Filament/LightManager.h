@@ -119,7 +119,7 @@
  *
  * @return number of component in the LightManager
  */
-- (int) getComponentCount;
+- (size_t) getComponentCount;
 /**
  * Returns whether a particular Entity is associated with a component of this LightManager
  * @param entity An Entity.
