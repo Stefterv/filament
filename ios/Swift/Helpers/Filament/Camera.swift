@@ -7,6 +7,12 @@
 import FilamentBindings
 
 extension Camera{
+    public func lookAt(_ at: simd_float3, _ center: simd_float3, _ up: simd_float3){
+        func simd_float3_double3(_ vector: simd_float3) -> simd_double3{
+            return simd_double3(x: Double(vector.x), y: Double(vector.y), z: Double(vector.z))
+        }
+        self.look(at: simd_float3_double3(at),simd_float3_double3(center) ,simd_float3_double3(up))
+    }
     public var position: simd_double3{
         getPosition()
     }
