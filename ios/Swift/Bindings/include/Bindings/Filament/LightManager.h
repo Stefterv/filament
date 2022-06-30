@@ -6,6 +6,7 @@
 //
 #import <Foundation/Foundation.h>
 #import "../Utils/Entity.h"
+#import <simd/simd.h>
 
 #ifndef LightManager_h
 #define LightManager_h
@@ -170,9 +171,196 @@ typedef NS_ENUM(NSInteger, Type) {
  * @return         true if the light channel is enabled, false otherwise
  */
 - (bool) getLightChannel: (EntityInstance) instance :(int) channel;
+/**
+ * Dynamically updates the light's position.
+ *
+ * <p>
+ * <b>note:</b> The Light's position is ignored for directional lights
+ * ({@link Type#DIRECTIONAL} or {@link Type#SUN})
+ * </p>
+ *
+ * @param i        Instance of the component obtained from getInstance().
+ * @param x Light's position x coordinate in world space. The default is 0.
+ * @param y Light's position y coordinate in world space. The default is 0.
+ * @param z Light's position z coordinate in world space. The default is 0.
+ *
+ * @see Builder#position
+ */
+- (void) setPosition: (EntityInstance) instance :(simd_double3) position;
 
+/**
+ * returns the light's position in world space
+ * @param i     Instance of the component obtained from getInstance().
+ * @return      An array of 3 float containing the light's position coordinates.
+ */
+- (simd_double3) getPosition: (EntityInstance) instance;
+/**
+ * Dynamically updates the light's direction
+ *
+ * <p>
+ * The light direction is specified in world space and should be a unit vector.
+ * </p>
+ * <p>
+ * <b>note:</b> The Light's direction is ignored for  {@link Type#POINT} lights.
+ * </p>
+ *
+ * @param i Instance of the component obtained from getInstance().
+ * @param x light's direction x coordinate (default is 0)
+ * @param y light's direction y coordinate (default is -1)
+ * @param z light's direction z coordinate (default is 0)
+ *
+ * @see Builder#direction
+ */
+- (void) setDirection: (EntityInstance) instance :(simd_double3) direction;
+/**
+ * returns the light's direction in world space
+ * @param i     Instance of the component obtained from getInstance().
+ * @param out   An array of 3 float to receive the result or null.
+ * @return      An array of 3 float containing the light's direction.
+ */
+- (simd_double3) getDirection: (EntityInstance) instance;
+/**
+ * Dynamically updates the light's hue as linear sRGB
+ *
+ * @param i     Instance of the component obtained from getInstance().
+ * @param linearR red component of the color (default is 1)
+ * @param linearG green component of the color (default is 1)
+ * @param linearB blue component of the color (default is 1)
+ *
+ * @see Builder#color
+ * @see #getInstance
+ */
+- (void) setColor: (EntityInstance) instance :(simd_double3) linear;
+/**
+ * Returns the light color
+ * @param i     Instance of the component obtained from getInstance().
+ * @return      An array of 3 float containing the light's color in linear sRGB
+ */
+- (simd_double3) getColor: (EntityInstance) instance;
+/**
+ * Dynamically updates the light's intensity. The intensity can be negative.
+ *
+ * @param i         Instance of the component obtained from getInstance().
+ * @param intensity This parameter depends on the {@link Type}, for directional lights,
+ *                  it specifies the illuminance in <i>lux</i> (or <i>lumen/m^2</i>).
+ *                  For point lights and spot lights, it specifies the luminous power
+ *                  in <i>lumen</i>. For example, the sun's illuminance is about 100,000
+ *                  lux.
+ *
+ * @see Builder#intensity
+ */
+- (void) setIntensity: (EntityInstance) instance :(double) intensity;
 
-
+/**
+ * Dynamically updates the light's intensity in candela. The intensity can be negative.
+ *
+ * This method is equivalent to calling setIntensity for directional lights (Type.DIRECTIONAL
+ * or Type.SUN).
+ *
+ * @param i         Instance of the component obtained from getInstance().
+ * @param intensity Luminous intensity in <i>candela</i>.
+ *
+ * @see Builder#intensityCandela
+ */
+- (void) setIntensityCandela: (EntityInstance) instance :(double) intensity;
+/**
+ * returns the light's luminous intensity in <i>lumens</i>.
+ *<p>
+ * <b>note:</b> for {@link Type#FOCUSED_SPOT} lights, the returned value depends on the outer cone angle.
+ *</p>
+ *
+ * @param i     Instance of the component obtained from getInstance().
+ *
+ * @return luminous intensity in <i>lumen</i>.
+ */
+- (double) getIntensity: (EntityInstance) instance;
+/**
+ * Set the falloff distance for point lights and spot lights.
+ *
+ * @param i       Instance of the component obtained from getInstance().
+ * @param falloff falloff distance in world units. Default is 1 meter.
+ *
+ * @see Builder#falloff
+ */
+- (void) setFalloff: (EntityInstance) instance :(double) falloff;
+/**
+ * returns the falloff distance of this light.
+ * @param i     Instance of the component obtained from getInstance().
+ * @return      the falloff distance of this light.
+ */
+- (double) getFalloff: (EntityInstance) instance;
+/**
+ * Dynamically updates a spot light's cone as angles
+ *
+ * @param i     Instance of the component obtained from getInstance().
+ * @param inner inner cone angle in *radians* between 0 and pi/2
+ * @param outer outer cone angle in *radians* between inner and pi/2
+ *
+ * @see Builder#spotLightCone
+ */
+- (void) setSpotLightCone: (EntityInstance) instance :(double) inner :(double) outer;
+/**
+ * Dynamically updates the angular radius of a Type.SUN light
+ *
+ * The Sun as seen from Earth has an angular size of 0.526° to 0.545°
+ *
+ * @param i     Instance of the component obtained from getInstance().
+ * @param angularRadius sun's radius in degrees. Default is 0.545°.
+ */
+- (void) setSunAngularRadius: (EntityInstance) instance :(double) angularRadius;
+/**
+ * returns the angular radius if the sun in degrees.
+ * @param i     Instance of the component obtained from getInstance().
+ * @return the angular radius if the sun in degrees.
+ */
+- (double) getSunAngularRadius: (EntityInstance) instance;
+/**
+ * Dynamically updates the halo radius of a Type.SUN light. The radius
+ * of the halo is defined as a multiplier of the sun angular radius.
+ *
+ * @param i     Instance of the component obtained from getInstance().
+ * @param haloSize radius multiplier. Default is 10.0.
+ */
+- (void) setSunHaloSize: (EntityInstance) instance :(double) haloSize;
+/**
+ * returns the halo size of a Type.SUN light as a multiplier of the
+ * sun angular radius.
+ * @param i     Instance of the component obtained from getInstance().
+ * @return the halo size
+ */
+- (double) getSunHaloSize: (EntityInstance) instance;
+/**
+ * Dynamically updates the halo falloff of a Type.SUN light. The falloff
+ * is a dimensionless number used as an exponent.
+ *
+ * @param i     Instance of the component obtained from getInstance().
+ * @param haloFalloff halo falloff. Default is 80.0.
+ */
+- (void) setSunHaloFalloff: (EntityInstance) instance :(double) haloFalloff;
+/**
+ * returns the halo falloff of a Type.SUN light as a dimensionless value.
+ * @param i     Instance of the component obtained from getInstance().
+ * @return the halo falloff
+ */
+- (double) getSunHaloFalloff: (EntityInstance) instance;
+/**
+ * Whether this Light casts shadows (disabled by default)
+ *
+ * <p>
+ * <b>warning:</b> {@link Type#POINT} cannot cast shadows.
+ * </p>
+ *
+ * @param i     Instance of the component obtained from getInstance().
+ * @param shadowCaster Enables or disables casting shadows from this Light.
+ */
+- (void) setShadowCaster: (EntityInstance) instance :(bool) shadowCaster;
+/**
+ * returns whether this light casts shadows.
+ * @param i     Instance of the component obtained from getInstance().
+ */
+- (bool) isShadowCaster: (EntityInstance) instance;
+- (double) getOuterConeAngle: (EntityInstance) instance;
+- (double) getInnerConeAngle: (EntityInstance) instance;
 @end
 
 
