@@ -10,12 +10,15 @@ import Filament
 
 @main
 struct GltfViewer: App{
-    var body: some Scene{
+    @State var engine: Engine?
+    
+    var body: some SwiftUI.Scene{
         WindowGroup{
-            Text("Test")
-                .onAppear{
-                    Engine.create()
-                }
+            FilaScene(){
+                Spacer()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .ignoresSafeArea()
         }
     }
 }

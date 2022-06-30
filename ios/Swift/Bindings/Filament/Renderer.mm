@@ -12,6 +12,20 @@
 #import <filament/Viewport.h>
 #import "../Math.h"
 
+@implementation ClearOptions
+
+@end
+
+@implementation DisplayInfo
+
+
+@end
+
+@implementation FrameRateOptions
+
+
+@end
+
 @implementation Renderer{
     filament::Renderer* nativeRenderer;
 }
@@ -38,7 +52,8 @@
 - (void)setClearOptions:(ClearOptions *)info{
     auto options = filament::Renderer::ClearOptions();
     options.clear = info.clear;
-    options.clearColor = FLOAT4_FROM_SIMD(info.clearColor);
+    auto color = info.clearColor;
+    options.clearColor = filament::math::float4(color.red, color.green, color.blue, color.alpha);
     options.discard = info.discard;
     nativeRenderer->setClearOptions(options);
 }
@@ -46,7 +61,7 @@
     nativeRenderer->setPresentationTime(monotonicClockNanos);
 }
 - (bool)beginFrame:(SwapChain *)swapChain{
-    nativeRenderer->beginFrame( (filament::SwapChain*) swapChain.swapchain);
+    return nativeRenderer->beginFrame( (filament::SwapChain*) swapChain.swapchain);
 }
 - (void)endFrame{
     nativeRenderer->endFrame();
@@ -57,7 +72,6 @@
 - (void)renderStandaloneView:(View *)view{
     nativeRenderer->renderStandaloneView( (filament::View*) view.view);
 }
-#define FILAMENT_VIEWPORT(dstViewport) (filament::Viewport(dstViewport.left, dstViewport.bottom, dstViewport.width, dstViewport.height))
 - (void)copyFrame:(SwapChain *)dstSwapChain :(Viewport *)dstViewport :(Viewport *)srcViewport :(int)flags{
     nativeRenderer->copyFrame( (filament::SwapChain*) dstSwapChain.swapchain, FILAMENT_VIEWPORT(dstViewport), FILAMENT_VIEWPORT(srcViewport));
 }

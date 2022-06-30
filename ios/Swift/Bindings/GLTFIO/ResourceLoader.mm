@@ -6,6 +6,11 @@
 //
 #import "Bindings/GLTFIO/ResourceLoader.h"
 #import <gltfio/ResourceLoader.h>
+@implementation ResourceLoaderOptions{
+    
+}
+
+@end
 
 @implementation ResourceLoader{
     gltfio::ResourceLoader* nativeLoader;

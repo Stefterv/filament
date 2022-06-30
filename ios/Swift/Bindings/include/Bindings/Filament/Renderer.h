@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <simd/simd.h>
+#import <CoreImage/CoreImage.h>
 
 #import "SwapChain.h"
 #import "View.h"
@@ -17,12 +18,12 @@
 #define Renderer_h
 
 NS_SWIFT_NAME(Renderer.DisplayInfo)
-@interface DisplayInfo
+@interface DisplayInfo : NSObject
 @property double refreshRate;
 @end
 
 NS_SWIFT_NAME(Renderer.FrameRateOptions)
-@interface FrameRateOptions
+@interface FrameRateOptions : NSObject
 @property double interval;
 @property double headRoomRatio;
 @property double scaleRate;
@@ -30,8 +31,8 @@ NS_SWIFT_NAME(Renderer.FrameRateOptions)
 @end
 
 NS_SWIFT_NAME(Renderer.ClearOptions)
-@interface ClearOptions
-@property simd_double4 clearColor;
+@interface ClearOptions : NSObject
+@property CIColor*_Nonnull clearColor;
 @property bool clear;
 @property bool discard;
 - (nonnull id) init;

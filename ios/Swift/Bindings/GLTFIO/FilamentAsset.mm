@@ -4,7 +4,7 @@
 //
 //  Created by Stef Tervelde on 30.06.22.
 //
-#import "Bindings/GLTFIO/FilamentAsset.h""
+#import "Bindings/GLTFIO/FilamentAsset.h"
 #import <gltfio/FilamentAsset.h>
 
 @implementation FilamentAsset{
