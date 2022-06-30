@@ -6,6 +6,6 @@
 //
 import FilamentBindings
 
-extension FilamentInstance{
+extension glTFIO.FilamentInstance{
     
 }

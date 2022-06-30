@@ -6,6 +6,6 @@
 //
 import FilamentBindings
 
-extension MaterialProvider{
+extension glTFIO.MaterialProvider{
     
 }

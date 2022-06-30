@@ -6,6 +6,6 @@
 //
 import FilamentBindings
 
-extension Animator{
+extension glTFIO.Animator{
     
 }
