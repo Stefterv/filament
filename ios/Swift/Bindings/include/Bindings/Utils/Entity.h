@@ -9,5 +9,6 @@
 #define Entity_h
 
 typedef int32_t Entity NS_SWIFT_UNAVAILABLE("Create entities with the entity manager");
+typedef int32_t EntityInstance NS_SWIFT_UNAVAILABLE("Create entities with the entity manager");
 
 #endif /* Entity_h */
