@@ -98,9 +98,28 @@
     nativeEngine->destroy( (filament::View*) view.view);
 }
 
+- (void) destroyEntity:(Entity)entity{
+    nativeEngine->destroy(utils::Entity::import(entity));
+}
+
 - (EntityManager*) getEntityManager{
     auto manager = &nativeEngine->getEntityManager();
     return [[EntityManager alloc] init: manager];
+}
+
+- (TransformManager*) getTransformManager{
+    auto manager = &nativeEngine->getTransformManager();
+    return [[TransformManager alloc] init: manager];
+}
+
+- (LightManager*) getLightManager{
+    auto manager = &nativeEngine->getLightManager();
+    return [[LightManager alloc] init: manager];
+}
+
+- (RenderableManager*) getRenderableManager{
+    auto manager = &nativeEngine->getRenderableManager();
+    return [[RenderableManager alloc] init: manager];
 }
 
 @end

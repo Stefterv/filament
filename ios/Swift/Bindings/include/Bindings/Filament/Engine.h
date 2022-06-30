@@ -17,6 +17,9 @@
 #import "Camera.h"
 #import "../Utils/Entity.h"
 #import "../Utils/EntityManager.h"
+#import "TransformManager.h"
+#import "LightManager.h"
+#import "RenderableManager.h"
 
 typedef NS_ENUM(NSInteger, Backend) {
     Default = 0,
@@ -240,7 +243,26 @@ typedef NS_ENUM(NSInteger, Backend) {
  */
 - (void) destroyView: (nonnull View*) view;
 
+/**
+ * Destroys an <code>entity</code> and all its components.
+ * <p>
+ * It is recommended to destroy components individually before destroying their
+ * <code>entity</code>, this gives more control as to when the destruction really happens.
+ * Otherwise, orphaned components are garbage collected, which can happen at a later time.
+ * Even when component are garbage collected, the destruction of their <code>entity</code>
+ * terminates their participation immediately.
+ *
+ * @param entity the <code>entity</code> to destroy
+ */
+- (void) destroyEntity: (Entity) entity;
+
+- (nonnull TransformManager*) getTransformManager;
+
+- (nonnull LightManager*) getLightManager;
+
 - (nonnull EntityManager*) getEntityManager;
+
+- (nonnull RenderableManager*) getRenderableManager;
 
 @end
 
