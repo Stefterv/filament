@@ -12,7 +12,7 @@
 }
 
 - (id) init:(void *)manager{
-    self->_ manager = manager;
+    self->_manager = manager;
     self->nativeManager = (filament::RenderableManager*)manager;
     return self;
 }

@@ -109,9 +109,228 @@
 
 @interface Camera : NSObject
 
+typedef NS_ENUM(NSInteger, Projection) {
+    Perspective = 0,
+    Ortho = 1
+};
+typedef NS_ENUM(NSInteger, Fov) {
+    Vertical = 0,
+    Horizontal = 1
+};
+
 @property (nonatomic, readonly, nonnull) void* camera NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");
 - (nonnull id) init: (nonnull void*) camera NS_SWIFT_UNAVAILABLE("Create a new renderer with engine.createRenderer");
 - (nonnull id) init NS_UNAVAILABLE;
+
+/**
+ * Sets the projection matrix from a frustum defined by six planes.
+ *
+ * @param projection    type of projection to use
+ *
+ * @param left          distance in world units from the camera to the left plane,
+ *                      at the near plane. Precondition: <code>left</code> != <code>right</code>
+ *
+ * @param right         distance in world units from the camera to the right plane,
+ *                      at the near plane. Precondition: <code>left</code> != <code>right</code>
+ *
+ * @param bottom        distance in world units from the camera to the bottom plane,
+ *                      at the near plane. Precondition: <code>bottom</code> != <code>top</code>
+ *
+ * @param top           distance in world units from the camera to the top plane,
+ *                      at the near plane. Precondition: <code>bottom</code> != <code>top</code>
+ *
+ * @param near          distance in world units from the camera to the near plane.
+ *                      The near plane's position in view space is z = -<code>near</code>.
+ *                      Precondition:
+ *                      <code>near</code> > 0 for {@link Projection#PERSPECTIVE} or
+ *                      <code>near</code> != <code>far</code> for {@link Projection#ORTHO}.
+ *
+ * @param far           distance in world units from the camera to the far plane.
+ *                      The far plane's position in view space is z = -<code>far</code>.
+ *                      Precondition:
+ *                      <code>far</code> > <code>near</code>
+ *                              for {@link Projection#PERSPECTIVE} or
+ *                      <code>far</code> != <code>near</code>
+ *                              for {@link Projection#ORTHO}.
+ *
+ * <p>
+ * These parameters are silently modified to meet the preconditions above.
+ *
+ * @see Projection
+ */
+- (void) setProjection: (Projection) projection :(double) left :(double) right :(double) bottom :(double) top :(double) near :(double) far;
+/**
+ * Sets the projection matrix from the field-of-view.
+ *
+ * @param fovInDegrees  full field-of-view in degrees.
+ *                      0 < <code>fovInDegrees</code> < 180
+ *
+ * @param aspect        aspect ratio width/height. <code>aspect</code> > 0
+ *
+ * @param near          distance in world units from the camera to the near plane.
+ *                      The near plane's position in view space is z = -<code>near</code>.
+ *                      Precondition:
+ *                      <code>near</code> > 0 for {@link Projection#PERSPECTIVE} or
+ *                      <code>near</code> != <code>far</code> for {@link Projection#ORTHO}.
+ *
+ * @param far           distance in world units from the camera to the far plane.
+ *                      The far plane's position in view space is z = -<code>far</code>.
+ *                      Precondition:
+ *                      <code>far</code> > <code>near</code>
+ *                              for {@link Projection#PERSPECTIVE} or
+ *                      <code>far</code> != <code>near</code>
+ *                              for {@link Projection#ORTHO}.
+ *
+ * @param direction    direction of the field-of-view parameter.
+ * <p>
+ * These parameters are silently modified to meet the preconditions above.
+ *
+ * @see Fov
+ */
+- (void) setProjection: (double) fovInDegrees :(double) aspect :(double) near :(double) far :(Fov) direction;
+/**
+ * Sets the projection matrix from the focal length.
+ *
+ * @param focalLength   lens's focal length in millimeters. <code>focalLength</code> > 0
+ *
+ * @param aspect        aspect ratio width/height. <code>aspect</code> > 0
+ *
+ * @param near          distance in world units from the camera to the near plane.
+ *                      The near plane's position in view space is z = -<code>near</code>.
+ *                      Precondition:
+ *                      <code>near</code> > 0 for {@link Projection#PERSPECTIVE} or
+ *                      <code>near</code> != <code>far</code> for {@link Projection#ORTHO}.
+ *
+ * @param far           distance in world units from the camera to the far plane.
+ *                      The far plane's position in view space is z = -<code>far</code>.
+ *                      Precondition:
+ *                      <code>far</code> > <code>near</code>
+ *                              for {@link Projection#PERSPECTIVE} or
+ *                      <code>far</code> != <code>near</code>
+ *                              for {@link Projection#ORTHO}.
+ *
+ */
+- (void) setLensProjection: (double) focalLength :(double) aspect :(double) near :(double) far;
+
+/**
+ * Sets a custom projection matrix.
+ *
+ * <p>The projection matrix must define an NDC system that must match the OpenGL convention,
+ * that is all 3 axis are mapped to [-1, 1].</p>
+ *
+ * @param inProjection  custom projection matrix for rendering and culling
+ *
+ * @param near          distance in world units from the camera to the near plane.
+ *                      The near plane's position in view space is z = -<code>near</code>.
+ *                      Precondition:
+ *                      <code>near</code> > 0 for {@link Projection#PERSPECTIVE} or
+ *                      <code>near</code> != <code>far</code> for {@link Projection#ORTHO}.
+ *
+ * @param far           distance in world units from the camera to the far plane.
+ *                      The far plane's position in view space is z = -<code>far</code>.
+ *                      Precondition:
+ *                      <code>far</code> > <code>near</code>
+ *                              for {@link Projection#PERSPECTIVE} or
+ *                      <code>far</code> != <code>near</code>
+ *                              for {@link Projection#ORTHO}.
+ */
+- (void) setCustomProjection: (nonnull double[]) inProjection :(double) near :(double) far;
+/**
+* Sets a custom projection matrix.
+*
+* <p>The projection matrices must define an NDC system that must match the OpenGL convention,
+* that is all 3 axis are mapped to [-1, 1].</p>
+*
+* @param inProjection              custom projection matrix for rendering.
+*
+* @param inProjectionForCulling    custom projection matrix for culling.
+*
+* @param near          distance in world units from the camera to the near plane.
+*                      The near plane's position in view space is z = -<code>near</code>.
+*                      Precondition:
+*                      <code>near</code> > 0 for {@link Projection#PERSPECTIVE} or
+*                      <code>near</code> != <code>far</code> for {@link Projection#ORTHO}.
+*
+* @param far           distance in world units from the camera to the far plane.
+*                      The far plane's position in view space is z = -<code>far</code>.
+*                      Precondition:
+*                      <code>far</code> > <code>near</code>
+*                              for {@link Projection#PERSPECTIVE} or
+*                      <code>far</code> != <code>near</code>
+*                              for {@link Projection#ORTHO}.
+*/
+- (void) setCustomProjection: (nonnull double[]) inProjection :(nonnull double[]) inProjectionForCulling :(double) near :(double) far;
+/**
+ * Sets an additional matrix that scales the projection matrix.
+ *
+ * <p>This is useful to adjust the aspect ratio of the camera independent from its projection.
+ * First, pass an aspect of 1.0 to setProjection. Then set the scaling with the desired aspect
+ * ratio:<br>
+ *
+ * <code>
+ *     double aspect = width / height;
+ *
+ *     // with Fov.HORIZONTAL passed to setProjection:
+ *     camera.setScaling(1.0, aspect);
+ *
+ *     // with Fov.VERTICAL passed to setProjection:
+ *     camera.setScaling(1.0 / aspect, 1.0);
+ * </code>
+ *
+ * By default, this is an identity matrix.
+ * </p>
+ *
+ * @param xscaling  horizontal scaling to be applied after the projection matrix.
+ * @param yscaling  vertical scaling to be applied after the projection matrix.
+ *
+ * @see Camera#setProjection
+ * @see Camera#setLensProjection
+ * @see Camera#setCustomProjection
+ */
+- (void) setScaling: (double) xscaling :(double) yscaling;
+/**
+ * Sets an additional matrix that shifts (translates) the projection matrix.
+ * <p>
+ * The shift parameters are specified in NDC coordinates, that is, if the translation must
+ * be specified in pixels, the xshift and yshift parameters be scaled by 1.0 / viewport.width
+ * and 1.0 / viewport.height respectively.
+ * </p>
+ *
+ * @param xshift    horizontal shift in NDC coordinates applied after the projection
+ * @param yshift    vertical shift in NDC coordinates applied after the projection
+ *
+ * @see Camera#setProjection
+ * @see Camera#setLensProjection
+ * @see Camera#setCustomProjection
+ */
+- (void) setShift: (double) xshift :(double) yshift;
+
+/**
+ * Sets the camera's view matrix.
+ * <p>
+ * Helper method to set the camera's entity transform component.
+ * Remember that the Camera "looks" towards its -z axis.
+ * <p>
+ * This has the same effect as calling:
+ *
+ * <pre>
+ *  engine.getTransformManager().setTransform(
+ *          engine.getTransformManager().getInstance(camera->getEntity()), viewMatrix);
+ * </pre>
+ *
+ * @param viewMatrix The camera position and orientation provided as a <b>rigid transform</b> matrix.
+ */
+// - (void) setModelMatrix: (nonnull float[]) viewMatrix;
+/**
+ * Sets the camera's view matrix.
+ * <p>
+ * Helper method to set the camera's entity transform component.
+ * Remember that the Camera "looks" towards its -z axis.
+ * <p>
+ *
+ * @param viewMatrix The camera position and orientation provided as a <b>rigid transform</b> matrix.
+ */
+- (void) setModelMatrix: (nonnull double[]) viewMatrix;
 
 @end
 
