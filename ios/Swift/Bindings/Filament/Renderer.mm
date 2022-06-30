@@ -6,7 +6,10 @@
 //
 
 #import "Bindings/Filament/Renderer.h"
+#import <backend/PixelBufferDescriptor.h>
 #import <filament/Renderer.h>
+#import <filament/Texture.h>
+#import "../Math.h"
 
 @implementation Renderer{
     filament::Renderer* nativeRenderer;
@@ -16,6 +19,51 @@
     self->_renderer = renderer;
     self->nativeRenderer = (filament::Renderer*) renderer;
     return self;
+}
+
+- (void)setDisplayInfo:(DisplayInfo *) displayInfo{
+    auto info = filament::Renderer::DisplayInfo();
+    info.refreshRate = displayInfo.refreshRate;
+    nativeRenderer->setDisplayInfo(info);
+}
+- (void)setFrameRateOptions:(FrameRateOptions *)options{
+    auto info = filament::Renderer::FrameRateOptions();
+    info.interval = options.interval;
+    info.headRoomRatio = options.headRoomRatio;
+    info.history = options.history;
+    info.scaleRate = options.scaleRate;
+    nativeRenderer->setFrameRateOptions(info);
+}
+- (void)setClearOptions:(ClearOptions *)info{
+    auto options = filament::Renderer::ClearOptions();
+    options.clear = info.clear;
+    options.clearColor = FLOAT4_FROM_SIMD(info.clearColor);
+    options.discard = info.discard;
+    nativeRenderer->setClearOptions(options);
+}
+- (void)setPresentationTime:(long)monotonicClockNanos{
+    nativeRenderer->setPresentationTime(monotonicClockNanos);
+}
+- (bool)beginFrame:(SwapChain *)swapChain{
+    nativeRenderer->beginFrame( (filament::SwapChain*) swapChain.swapchain);
+}
+- (void)endFrame{
+    nativeRenderer->endFrame();
+}
+- (void)render:(View *)view{
+    nativeRenderer->render( (filament::View*) view.view);
+}
+- (void)renderStandaloneView:(View *)view{
+    nativeRenderer->renderStandaloneView( (filament::View*) view.view);
+}
+- (void)copyFrame:(SwapChain *)dstSwapChain :(Viewport *)dstViewport :(Viewport *)srcViewport :(int)flags{
+    nativeRenderer->copyFrame( (filament::SwapChain*) dstSwapChain.swapchain, *(filament::Viewport*)dstViewport.viewPort, *(filament::Viewport*) srcViewport.viewPort);
+}
+- (double)getUserTime{
+    return nativeRenderer->getUserTime();
+}
+- (void)resetUserTime{
+    nativeRenderer->resetUserTime();
 }
 
 @end

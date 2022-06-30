@@ -20,6 +20,8 @@
 #define FLOAT3_FROM_SIMD(m) (filament::math::float3(m[0],m[1],m[2]))
 #define SIMD_DOUBLE3_FROM_FLOAT3(m) (simd_make_double3(m[0],m[1],m[2]))
 
+#define FLOAT4_FROM_SIMD(m) (filament::math::float4(m[0],m[1],m[2], m[3]))
+
 #define SIMD_FLOAT4X4_FROM_MAT4(m) (simd_matrix( \
         simd_make_float4(m[0][0], m[0][1], m[0][2], m[0][3]), \
         simd_make_float4(m[1][0], m[1][1], m[1][2], m[1][3]), \

@@ -68,10 +68,10 @@ typedef NS_ENUM(NSInteger, PrimitiveType) {
 - (bool) isShadowCaster: (EntityInstance) instance;
 - (bool) isShadowReceiver: (EntityInstance) instance;
 - (nonnull Box*) getAxisAlignedBoundingBox: (EntityInstance) instance;
-- (int) getPrimitiveCount: (EntityInstance) instance;
+- (size_t) getPrimitiveCount: (EntityInstance) instance;
 - (void) setMaterialInstanceAt: (EntityInstance) instance :(int) primitiveIndex :(nonnull MaterialInstance*) materialInstance;
 - (nonnull MaterialInstance*) getMaterialInstanceAt: (EntityInstance) instance :(int) primitiveIndex;
-- (void) setGeometryAt: (EntityInstance) instance :(int) primitiveIndex :(PrimitiveType) type :(nonnull VertexBuffer*) vertices :(nonnull IndexBuffer*) indices :(int) offset :(int) minIndex :(int) maxIndex :(int) count;
+- (void) setGeometryAt: (EntityInstance) instance :(int) primitiveIndex :(PrimitiveType) type :(nonnull VertexBuffer*) vertices :(nonnull IndexBuffer*) indices :(int) offset :(int) count;
 /**
 * Changes the drawing order for blended primitives. The drawing order is either global or
 * local (default) to this Renderable. In either case, the Renderable priority takes precedence.
@@ -82,7 +82,7 @@ typedef NS_ENUM(NSInteger, PrimitiveType) {
 * @param primitiveIndex the primitive of interest
 * @param blendOrder draw order number (0 by default). Only the lowest 15 bits are used.
 */
-- (void) setBlendOrderAt: (EntityInstance) instance :(int) primitiveIndex :(int) blendOrder
+- (void) setBlendOrderAt: (EntityInstance) instance :(int) primitiveIndex :(int) blendOrder;
 /**
  * Changes whether the blend order is global or local to this Renderable (by default).
  *
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger, PrimitiveType) {
  * @param primitiveIndex the primitive of interest
  * @param enabled true for global, false for local blend ordering.
  */
-- (void) setGlobalBlendOrderEnabledAt: (EntityInstance) instance :(int) primitiveIndex :(int) blendOrder
+- (void) setGlobalBlendOrderEnabledAt: (EntityInstance) instance :(int) primitiveIndex :(int) blendOrder;
 @end
 
 
