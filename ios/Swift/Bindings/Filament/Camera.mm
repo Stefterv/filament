@@ -10,11 +10,11 @@
 #import <math/mat4.h>
 #import <math/mat2.h>
 
-#define FILAMENT_MAT4_FROM_DOUBLEARRAY(inProjection) (filament::math::mat4 \
-        (inProjection[0], inProjection[1], inProjection[2], inProjection[3], \
-        inProjection[5], inProjection[6], inProjection[7], inProjection[8], \
-        inProjection[9], inProjection[10], inProjection[11], inProjection[12], \
-        inProjection[13], inProjection[14], inProjection[15], inProjection[16]))
+#define FILAMENT_MAT4_FROM_SIMD(m) (filament::math::mat4 \
+        (m.columns[0][0], m.columns[0][1], m.columns[0][2], m.columns[0][3], \
+         m.columns[1][0], m.columns[1][1], m.columns[1][2], m.columns[1][3], \
+         m.columns[2][0], m.columns[2][1], m.columns[2][2], m.columns[2][3], \
+         m.columns[3][0], m.columns[3][1], m.columns[3][2], m.columns[3][3]))
 
 @implementation Camera{
     filament::Camera* nativeCamera;
@@ -38,13 +38,12 @@
     nativeCamera->setLensProjection(focalLength, aspect, near, far);
 }
 
-- (void)setCustomProjection:(double * _Nonnull)inProjection :(double)near :(double)far{
-    
-    nativeCamera->setCustomProjection(FILAMENT_MAT4_FROM_DOUBLEARRAY(inProjection), near, far);
+- (void)setCustomProjection:(simd_double4x4)inProjection :(double)near :(double)far{
+    nativeCamera->setCustomProjection(FILAMENT_MAT4_FROM_SIMD(inProjection), near, far);
 }
 
-- (void)setCustomProjection:(double * _Nonnull)inProjection :(double * _Nonnull)inProjectionForCulling :(double)near :(double)far{
-    nativeCamera->setCustomProjection(FILAMENT_MAT4_FROM_DOUBLEARRAY(inProjection), FILAMENT_MAT4_FROM_DOUBLEARRAY(inProjectionForCulling), near, far);
+- (void)setCustomProjection:(simd_double4x4)inProjection :(simd_double4x4)inProjectionForCulling :(double)near :(double)far{
+    nativeCamera->setCustomProjection(FILAMENT_MAT4_FROM_SIMD(inProjection), FILAMENT_MAT4_FROM_SIMD(inProjectionForCulling), near, far);
 }
 
 - (void)setScaling:(double)xscaling :(double)yscaling{
@@ -55,8 +54,8 @@
     nativeCamera->setShift(filament::math::double2(xshift, yshift));
 }
 
-- (void)setModelMatrix:(double * _Nonnull)viewMatrix{
-    nativeCamera->setModelMatrix(FILAMENT_MAT4_FROM_DOUBLEARRAY(viewMatrix));
+- (void)setModelMatrix:(simd_double4x4)viewMatrix{
+    nativeCamera->setModelMatrix(FILAMENT_MAT4_FROM_SIMD(viewMatrix));
 }
 
 @end

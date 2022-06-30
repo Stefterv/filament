@@ -4,6 +4,7 @@
 //  Created by Stef Tervelde on 29.06.22.
 //
 #import <Foundation/Foundation.h>
+#import <simd/simd.h>
 
 #ifndef Camera_h
 #define Camera_h
@@ -234,7 +235,7 @@ typedef NS_ENUM(NSInteger, Fov) {
  *                      <code>far</code> != <code>near</code>
  *                              for {@link Projection#ORTHO}.
  */
-- (void) setCustomProjection: (nonnull double[]) inProjection :(double) near :(double) far;
+- (void) setCustomProjection: (simd_double4x4) inProjection :(double) near :(double) far;
 /**
 * Sets a custom projection matrix.
 *
@@ -259,7 +260,7 @@ typedef NS_ENUM(NSInteger, Fov) {
 *                      <code>far</code> != <code>near</code>
 *                              for {@link Projection#ORTHO}.
 */
-- (void) setCustomProjection: (nonnull double[]) inProjection :(nonnull double[]) inProjectionForCulling :(double) near :(double) far;
+- (void) setCustomProjection: (simd_double4x4) inProjection :(simd_double4x4) inProjectionForCulling :(double) near :(double) far;
 /**
  * Sets an additional matrix that scales the projection matrix.
  *
@@ -330,7 +331,7 @@ typedef NS_ENUM(NSInteger, Fov) {
  *
  * @param viewMatrix The camera position and orientation provided as a <b>rigid transform</b> matrix.
  */
-- (void) setModelMatrix: (nonnull double[]) viewMatrix;
+- (void) setModelMatrix: (simd_double4x4) viewMatrix;
 
 @end
 
