@@ -12,7 +12,7 @@
 }
 
 - (id) init:(void *)grading{
-    self->_ grading = grading;
+    self->_grading = grading;
     self->nativeGrading = (filament::ColorGrading*)grading;
     return self;
 }

@@ -9,6 +9,7 @@
 #import <backend/PixelBufferDescriptor.h>
 #import <filament/Renderer.h>
 #import <filament/Texture.h>
+#import <filament/Viewport.h>
 #import "../Math.h"
 
 @implementation Renderer{
@@ -56,8 +57,9 @@
 - (void)renderStandaloneView:(View *)view{
     nativeRenderer->renderStandaloneView( (filament::View*) view.view);
 }
+#define FILAMENT_VIEWPORT(dstViewport) (filament::Viewport(dstViewport.left, dstViewport.bottom, dstViewport.width, dstViewport.height))
 - (void)copyFrame:(SwapChain *)dstSwapChain :(Viewport *)dstViewport :(Viewport *)srcViewport :(int)flags{
-    nativeRenderer->copyFrame( (filament::SwapChain*) dstSwapChain.swapchain, *(filament::Viewport*)dstViewport.viewPort, *(filament::Viewport*) srcViewport.viewPort);
+    nativeRenderer->copyFrame( (filament::SwapChain*) dstSwapChain.swapchain, FILAMENT_VIEWPORT(dstViewport), FILAMENT_VIEWPORT(srcViewport));
 }
 - (double)getUserTime{
     return nativeRenderer->getUserTime();

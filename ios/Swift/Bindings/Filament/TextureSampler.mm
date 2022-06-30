@@ -12,7 +12,7 @@
 }
 
 - (id) init:(void *)sampler{
-    self->_ sampler = sampler;
+    self->_sampler = sampler;
     self->nativeSampler = (filament::TextureSampler*)sampler;
     return self;
 }

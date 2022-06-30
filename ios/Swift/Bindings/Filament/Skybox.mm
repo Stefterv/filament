@@ -12,7 +12,7 @@
 }
 
 - (id) init:(void *)skybox{
-    self->_ skybox = skybox;
+    self->_skybox = skybox;
     self->nativeSkybox = (filament::Skybox*)skybox;
     return self;
 }

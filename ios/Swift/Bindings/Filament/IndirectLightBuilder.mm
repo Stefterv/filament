@@ -5,15 +5,15 @@
 //  Created by Stef Tervelde on 30.06.22.
 //
 #import "Bindings/Filament/IndirectLightBuilder.h"
-#import <filament/IndirectLightBuilder.h>
+#import <filament/IndirectLight.h>
 
 @implementation IndirectLightBuilder{
-    filament::IndirectLightBuilder* nativeBuilder;
+    filament::IndirectLight::Builder* nativeBuilder;
 }
 
 - (id) init:(void *)builder{
-    self->_ builder = builder;
-    self->nativeBuilder = (filament::IndirectLightBuilder*)builder;
+    self->_builder = builder;
+    self->nativeBuilder = (filament::IndirectLight::Builder*)builder;
     return self;
 }
 

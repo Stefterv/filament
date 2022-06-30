@@ -12,7 +12,7 @@
 }
 
 - (id) init:(void *)light{
-    self->_ light = light;
+    self->_light = light;
     self->nativeLight = (filament::IndirectLight*)light;
     return self;
 }

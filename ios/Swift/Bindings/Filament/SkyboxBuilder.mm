@@ -5,15 +5,15 @@
 //  Created by Stef Tervelde on 30.06.22.
 //
 #import "Bindings/Filament/SkyboxBuilder.h"
-#import <filament/SkyboxBuilder.h>
+#import <filament/Skybox.h>
 
 @implementation SkyboxBuilder{
-    filament::SkyboxBuilder* nativeBuilder;
+    filament::Skybox::Builder* nativeBuilder;
 }
 
 - (id) init:(void *)builder{
-    self->_ builder = builder;
-    self->nativeBuilder = (filament::SkyboxBuilder*)builder;
+    self->_builder = builder;
+    self->nativeBuilder = (filament::Skybox::Builder*)builder;
     return self;
 }
 

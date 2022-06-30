@@ -12,7 +12,7 @@
 }
 
 - (id) init:(void *)mapper{
-    self->_ mapper = mapper;
+    self->_mapper = mapper;
     self->nativeMapper = (filament::ToneMapper*)mapper;
     return self;
 }
