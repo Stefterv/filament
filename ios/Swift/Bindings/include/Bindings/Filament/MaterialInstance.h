@@ -6,7 +6,7 @@
 //
 #import <Foundation/Foundation.h>
 #import "Texture.h"
-#import "Material.h"
+
 #import <simd/simd.h>
 
 #ifndef MaterialInstance_h
@@ -29,9 +29,6 @@
  */
 NS_ASSUME_NONNULL_BEGIN
 + (instancetype) duplicate: (MaterialInstance*) instance;
-
-
-- (Material*) getMaterial;
 
 - (NSString*) getName;
 

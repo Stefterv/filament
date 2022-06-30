@@ -17,4 +17,8 @@
     return self;
 }
 
+- (MaterialInstance *)createInstance{
+    
+}
+
 @end
