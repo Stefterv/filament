@@ -18,7 +18,10 @@
 - (nonnull id) init NS_UNAVAILABLE;
 
 - (Entity) create;
+- (void) destroy: (Entity) entity;
+- (bool) isAlive: (Entity) entity;
 
++ (nonnull instancetype) get;
 @end
 
 #endif /* EntityManager_h */
