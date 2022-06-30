@@ -84,8 +84,36 @@
 - (void)setSpotLightCone:(EntityInstance)instance :(double)inner :(double)outer{
     nativeManager->setSpotLightCone(instance, inner, outer);
 }
+- (void)setSunAngularRadius:(EntityInstance)instance :(double)angularRadius{
+    nativeManager->setSunAngularRadius(instance, angularRadius);
+}
+- (double)getSunAngularRadius:(EntityInstance)instance{
+    return nativeManager->getSunAngularRadius(instance);
+}
+- (void)setSunHaloSize:(EntityInstance)instance :(double)haloSize{
+    nativeManager->setSunHaloSize(instance, haloSize);
+}
+- (double)getSunHaloSize:(EntityInstance)instance{
+    return nativeManager->getSunHaloSize(instance);
+}
+- (void)setSunHaloFalloff:(EntityInstance)instance :(double)haloFalloff{
+    nativeManager->setSunHaloFalloff(instance, haloFalloff);
+}
+- (double)getSunHaloFalloff:(EntityInstance)instance{
+    return nativeManager->getSunHaloFalloff(instance);
+}
+- (void)setShadowCaster:(EntityInstance)instance :(bool)shadowCaster{
+    nativeManager->setShadowCaster(instance, shadowCaster);
+}
+- (bool)isShadowCaster:(EntityInstance)instance{
+    return nativeManager->isShadowCaster(instance);
+}
+- (double)getOuterConeAngle:(EntityInstance)instance{
 
-
-
+    return nativeManager->getSpotLightOuterCone(instance);
+}
+- (double)getInnerConeAngle:(EntityInstance)instance{
+    return nativeManager->getSpotLightOuterCone(instance);
+}
 
 @end
