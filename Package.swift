@@ -8,7 +8,7 @@ let package = Package(
     products: [
         .library(
             name: "Filament",
-            targets: ["Filament"]),
+            targets: ["Filament","FilamentBindings", "filament"]),
     ],
     dependencies: [
     ],
@@ -120,6 +120,13 @@ let package = Package(
         .target(
             name: "Filament",
             dependencies: [
+                "FilamentBindings"
+            ],
+            path: "ios/Swift/Helpers"
+        ),
+        .target(
+            name: "FilamentBindings",
+            dependencies: [
                 "filament",
                 "backend",
                 "basis_transcoder",
@@ -147,9 +154,9 @@ let package = Package(
                 "vkshaders",
                 "zstd",
             ],
-            path: "ios/Sources",
+            path: "ios/Swift/Bindings",
             cxxSettings: [
-                .headerSearchPath("../../out/ios-release/filament/include")
+                .headerSearchPath("../../../out/ios-release/filament/include")
             ]
         ),
     ],

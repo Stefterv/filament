@@ -333,6 +333,132 @@ typedef NS_ENUM(NSInteger, Fov) {
  */
 - (void) setModelMatrix: (simd_double4x4) viewMatrix;
 
+/**
+ * Sets the camera's view matrix.
+ *
+ * @param eyeX      x-axis position of the camera in world space
+ * @param eyeY      y-axis position of the camera in world space
+ * @param eyeZ      z-axis position of the camera in world space
+ * @param centerX   x-axis position of the point in world space the camera is looking at
+ * @param centerY   y-axis position of the point in world space the camera is looking at
+ * @param centerZ   z-axis position of the point in world space the camera is looking at
+ * @param upX       x-axis coordinate of a unit vector denoting the camera's "up" direction
+ * @param upY       y-axis coordinate of a unit vector denoting the camera's "up" direction
+ * @param upZ       z-axis coordinate of a unit vector denoting the camera's "up" direction
+ */
+- (void) lookAt: (simd_double3) eye :(simd_double3) center :(simd_double3) up;
+
+- (double) getNear;
+
+- (double) getCullingFar;
+
+
+/**
+ * Retrieves the camera's projection matrix. The projection matrix used for rendering always has
+ * its far plane set to infinity. This is why it may differ from the matrix set through
+ * setProjection() or setLensProjection().
+ *
+ * @return A simd_double4x4 containing the camera's projection.
+ */
+- (simd_double4x4) getProjectionMatrix;
+
+/**
+ * Retrieves the camera's culling matrix. The culling matrix is the same as the projection
+ * matrix, except the far plane is finite.
+ *
+ * @return A simd_double4x4 containing the camera's projection.
+ */
+- (simd_double4x4) getCullingProjectionMatrix;
+
+/**
+ * Retrieves the camera's model matrix. The model matrix encodes the camera position and
+ * orientation, or pose.
+ * @return A  simd_double4x4 containing the camera's pose
+ */
+
+- (simd_double4x4) getModelMatrix;
+
+/**
+ * Retrieves the camera's view matrix. The view matrix is the inverse of the model matrix.
+ *
+ * @return A  simd_double4x4 containing the camera's view
+ */
+
+- (simd_double4x4) getViewMatrix;
+
+
+- (simd_double3) getPosition;
+
+- (simd_double3) getLeftVector;
+
+- (simd_double3) getUpVector;
+
+- (simd_double3) getForwardVector;
+/**
+ * Sets this camera's exposure (default is f/16, 1/125s, 100 ISO)
+ *
+ * The exposure ultimately controls the scene's brightness, just like with a real camera.
+ * The default values provide adequate exposure for a camera placed outdoors on a sunny day
+ * with the sun at the zenith.
+ *
+ * With the default parameters, the scene must contain at least one Light of intensity
+ * similar to the sun (e.g.: a 100,000 lux directional light) and/or an indirect light
+ * of appropriate intensity (30,000).
+ *
+ * @param aperture      Aperture in f-stops, clamped between 0.5 and 64.
+ *                      A lower aperture value increases the exposure, leading to
+ *                      a brighter scene. Realistic values are between 0.95 and 32.
+ *
+ * @param shutterSpeed  Shutter speed in seconds, clamped between 1/25,000 and 60.
+ *                      A lower shutter speed increases the exposure. Realistic values are
+ *                      between 1/8000 and 30.
+ *
+ * @param sensitivity   Sensitivity in ISO, clamped between 10 and 204,800.
+ *                      A higher sensitivity increases the exposure. Realistic values are
+ *                      between 50 and 25600.
+ *
+ * @see LightManager
+ * @see #setExposure(float)
+ */
+
+- (void) setExposure: (double) aperture :(double) shutterSpeed :(double) sensitivity;
+
+- (double) getAperture;
+
+- (double) getShutterSpeed;
+
+- (double) getFocalLength;
+
+
+/**
+ * Set the camera focus distance in world units
+ * @param distance Distance from the camera to the focus plane in world units. Must be
+ *                 positive and larger than the camera's near clipping plane.
+ */
+- (void) setFocusDistance: (double) distance;
+
+- (double) getFocusDistance;
+
+/**
+ * Helper to compute the effective focal length taking into account the focus distance
+ *
+ * @param focalLength       focal length in any unit (e.g. [m] or [mm])
+ * @param focusDistance     focus distance in same unit as focalLength
+ * @return                  the effective focal length in same unit as focalLength
+ */
++ (double) computeEffectiveFocalLength: (double) focalLength :(double)focusDistance;
+
+/**
+ * Helper to compute the effective field-of-view taking into account the focus distance
+ *
+ * @param fovInDegrees      full field of view in degrees
+ * @param focusDistance     focus distance in meters [m]
+ * @return                  effective full field of view in degrees
+ */
++ (double) computeEffectiveFov: (double) fovInDegrees :(double) focusDistance;
+
+
+
 @end
 
 #endif /* Camera_h */
