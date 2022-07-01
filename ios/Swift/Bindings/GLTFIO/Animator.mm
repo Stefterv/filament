@@ -8,12 +8,12 @@
 #import <gltfio/Animator.h>
 
 @implementation Animator{
-    gltfio::Animator* nativeAnimator;
+    filament::gltfio::Animator* nativeAnimator;
 }
 
 - (id) init:(void *)animator{
     self->_animator = animator;
-    self->nativeAnimator = (gltfio::Animator*)animator;
+    self->nativeAnimator = (filament::gltfio::Animator*)animator;
     return self;
 }
 

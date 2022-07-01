@@ -15,7 +15,6 @@ NS_SWIFT_NAME(ResourceLoader.Options)
 @property bool normalizeSkinningWeights;
 @property bool recomputeBoundingBoxes;
 @property bool ignoreBindTransform;
-- (nonnull id) init;
 @end
 
 NS_SWIFT_NAME(glTFIO.ResourceLoader)

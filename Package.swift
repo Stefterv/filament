@@ -102,6 +102,10 @@ let package = Package(
             path: "out/ios-release/filament/lib/universal/uberz.xcframework"
         ),
         .binaryTarget(
+            name: "uberarchive",
+            path: "out/ios-release/filament/lib/universal/uberarchive.xcframework"
+        ),
+        .binaryTarget(
             name: "utils",
             path: "out/ios-release/filament/lib/universal/utils.xcframework"
         ),
@@ -149,6 +153,7 @@ let package = Package(
                 "smol-v",
                 "stb",
                 "uberz",
+                "uberarchive",
                 "utils",
                 "viewer",
                 "vkshaders",

@@ -5,15 +5,20 @@
 //  Created by Stef Tervelde on 30.06.22.
 //
 #import "Bindings/GLTFIO/MaterialProvider.h"
+#import <filament/Engine.h>
 #import <gltfio/MaterialProvider.h>
+#import <gltfio/materials/uberarchive.h>
+
+
 
 @implementation MaterialProvider{
-    gltfio::MaterialProvider* nativeProvider;
+    filament::gltfio::MaterialProvider* nativeProvider;
 }
 
-- (id) init:(void *)provider{
+- (id)init:(Engine *)engine{
+    auto provider = filament::gltfio::createUbershaderProvider((filament::Engine*) engine.engine, UBERARCHIVE_DEFAULT_DATA, UBERARCHIVE_DEFAULT_SIZE);
+    self->nativeProvider = provider;
     self->_provider = provider;
-    self->nativeProvider = (gltfio::MaterialProvider*)provider;
     return self;
 }
 

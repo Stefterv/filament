@@ -13,12 +13,18 @@
 @end
 
 @implementation ResourceLoader{
-    gltfio::ResourceLoader* nativeLoader;
+    filament::gltfio::ResourceLoader* nativeLoader;
 }
 
-- (id) init:(void *)loader{
+- (id)init:(Engine *)engine :(ResourceLoaderOptions *)options{
+    auto config = filament::gltfio::ResourceConfiguration();
+    config.engine = (filament::Engine*) engine.engine;
+    config.ignoreBindTransform = options.ignoreBindTransform;
+    config.normalizeSkinningWeights = options.normalizeSkinningWeights;
+    config.recomputeBoundingBoxes = options.recomputeBoundingBoxes;
+    auto loader = new filament::gltfio::ResourceLoader(config);
     self->_loader = loader;
-    self->nativeLoader = (gltfio::ResourceLoader*)loader;
+    self->nativeLoader = loader;
     return self;
 }
 

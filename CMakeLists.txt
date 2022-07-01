@@ -735,7 +735,7 @@ if (APPLE)
     # - Only run these settings when applicable
     # - Make dynamic
     set_target_properties(
-        filament gltfio_core filaflat ibl image backend filameshio utils uberzlib shaders viewer vkshaders zstd basis_transcoder camutils basis_transcoder camutils civetweb dracodec filabridge filamat filamat_lite filament-iblprefilter geometry ibl-lite ktxreader meshoptimizer shaders smol-v stb uberzlib viewer vkshaders zstd
+        filament gltfio_core filaflat ibl uberarchive image backend filameshio utils uberzlib shaders viewer vkshaders zstd basis_transcoder camutils basis_transcoder camutils civetweb dracodec filabridge filamat filamat_lite filament-iblprefilter geometry ibl-lite ktxreader meshoptimizer shaders smol-v stb uberzlib viewer vkshaders zstd
         PROPERTIES 
         FRAMEWORK TRUE
     )

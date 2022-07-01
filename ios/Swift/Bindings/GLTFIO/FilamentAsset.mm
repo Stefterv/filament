@@ -8,12 +8,12 @@
 #import <gltfio/FilamentAsset.h>
 
 @implementation FilamentAsset{
-    gltfio::FilamentAsset* nativeAsset;
+    filament::gltfio::FilamentAsset* nativeAsset;
 }
 
 - (id) init:(void *)asset{
     self->_asset = asset;
-    self->nativeAsset = (gltfio::FilamentAsset*)asset;
+    self->nativeAsset = (filament::gltfio::FilamentAsset*)asset;
     return self;
 }
 

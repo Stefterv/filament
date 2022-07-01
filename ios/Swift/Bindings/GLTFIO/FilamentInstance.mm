@@ -8,12 +8,12 @@
 #import <gltfio/FilamentInstance.h>
 
 @implementation FilamentInstance{
-    gltfio::FilamentInstance* nativeInstance;
+    filament::gltfio::FilamentInstance* nativeInstance;
 }
 
 - (id) init:(void *)instance{
     self->_instance = instance;
-    self->nativeInstance = (gltfio::FilamentInstance*)instance;
+    self->nativeInstance = (filament::gltfio::FilamentInstance*)instance;
     return self;
 }
 
