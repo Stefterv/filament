@@ -6,6 +6,7 @@
 //
 #import <Foundation/Foundation.h>
 #import "Engine.h"
+#import "Material.h"
 
 #ifndef MaterialBuilder_h
 #define MaterialBuilder_h
@@ -13,10 +14,12 @@
 @interface MaterialBuilder : NSObject
 
 @property (nonatomic, readonly, nonnull) void* builder  NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");
-- (nonnull id) init;
+NS_ASSUME_NONNULL_BEGIN
+- (id) init;
 
-- (nonnull instancetype) payload: (nonnull NSArray*) buffer;
-- (nonnull instancetype) build: (nonnull Engine*) engine;
+- (instancetype) payload: (nonnull NSData*) buffer;
+- (Material*) build: (nonnull Engine*) engine;
+NS_ASSUME_NONNULL_END
 
 @end
 
