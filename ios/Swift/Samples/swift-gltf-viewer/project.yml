@@ -8,8 +8,7 @@ targets:
         info: 
           path: Info.plist
         sources:
-            - path: '../../../../third_party/models/BusterDrone'
-              type: folder
+            - path: 'Download.glb'
               buildPhase: resources
             - path: 'generated/default_env/default_env_ibl.ktx'
               buildPhase: resources

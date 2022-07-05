@@ -5,6 +5,9 @@
 //  Created by Stef Tervelde on 29.06.22.
 //
 #import <Foundation/Foundation.h>
+#import "Skybox.h"
+#import "IndirectLight.h"
+#import "../Utils/Entity.h"
 
 #ifndef Scene_h
 #define Scene_h
@@ -38,6 +41,18 @@
 @property (nonatomic, readonly, nonnull) void* scene NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");
 - (nonnull id) init: (nonnull void*) scene NS_SWIFT_UNAVAILABLE("Create a new renderer with engine.createScene");
 - (nonnull id) init NS_UNAVAILABLE;
+
+- (nullable Skybox*) getSkybox;
+- (void) setSkybox: (nullable Skybox*) skybox;
+
+- (void) setIndirectLight: (nullable IndirectLight*) light;
+
+- (void) addEntity: (Entity) entity;
+- (bool) hasEntity: (Entity) entity;
+- (void) removeEntity: (Entity) entity;
+
+- (size_t) getRenderableCount;
+- (size_t) getLightCount;
 
 @end
 

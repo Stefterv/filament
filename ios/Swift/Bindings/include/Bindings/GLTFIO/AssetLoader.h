@@ -9,6 +9,7 @@
 #import "../Utils/NameComponentManager.h"
 #import "MaterialProvider.h"
 #import "FilamentAsset.h"
+#import "FilamentInstance.h"
 
 #ifndef AssetLoader_h
 #define AssetLoader_h
@@ -44,8 +45,8 @@ NS_SWIFT_NAME(glTFIO.AssetLoader)
 
 + (nonnull instancetype) create: (nonnull AssetConfiguration*) config;
 
-- (nullable FilamentAsset*) createAssetFromJson: (nonnull NSArray*) bytes;
-- (nullable FilamentAsset*) createAssetFromBinary: (nonnull NSArray*) bytes;
+- (nullable FilamentAsset*) createAssetFromJson: (nonnull NSData*) bytes;
+- (nullable FilamentAsset*) createAssetFromBinary: (nonnull NSData*) bytes;
 /**
  * Consumes the contents of a glTF 2.0 file and produces a primary asset with one or more
  * instances. The primary asset has ownership over the instances.
@@ -69,7 +70,7 @@ NS_SWIFT_NAME(glTFIO.AssetLoader)
  * @param numInstances requested number of instances
  * @return the primary asset that has ownership over all instances
  */
-- (nullable FilamentAsset*) createInstancedAsset: (nonnull NSArray*) bytes :(nonnull NSMutableArray<FilamentAsset*>*) instances;
+- (nullable FilamentAsset*) createInstancedAsset: (nonnull NSArray*) bytes :(nonnull NSMutableArray<FilamentInstance*>*) instances;
 /**
  * Adds a new instance to an instanced asset.
  *
@@ -85,7 +86,7 @@ NS_SWIFT_NAME(glTFIO.AssetLoader)
  * This cannot be called on a non-instanced asset.
  * See also AssetLoader::createInstancedAsset().
  */
-- (nullable FilamentAsset*) createInstance: (nonnull FilamentAsset*) primary;
+- (nullable FilamentInstance*) createInstance: (nonnull FilamentAsset*) primary;
 /**
  * Destroys the given asset and all of its associated Filament objects.
  *

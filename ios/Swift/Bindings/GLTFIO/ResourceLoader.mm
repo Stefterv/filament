@@ -25,7 +25,14 @@
     auto loader = new filament::gltfio::ResourceLoader(config);
     self->_loader = loader;
     self->nativeLoader = loader;
+    
     return self;
 }
+
+
+- (instancetype)loadResources:(FilamentAsset *)asset{
+    nativeLoader->loadResources((filament::gltfio::FilamentAsset*) asset.asset);
+}
+
 
 @end

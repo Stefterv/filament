@@ -7,5 +7,8 @@
 import FilamentBindings
 
 extension glTFIO.FilamentAsset{
-    
+    public var entities: [Entity]{
+        let ents = getEntities();
+        return ents.map({$0.int32Value})
+    }
 }

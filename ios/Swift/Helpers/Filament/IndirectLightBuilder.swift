@@ -6,6 +6,6 @@
 //
 import FilamentBindings
 
-extension IndirectLightBuilder{
+extension IndirectLight.Builder{
     
 }

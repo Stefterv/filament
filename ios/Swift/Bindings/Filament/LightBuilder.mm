@@ -18,6 +18,7 @@
     auto builder = new filament::LightManager::Builder( (filament::LightManager::Type) type);
     self->_builder = builder;
     self->nativeBuilder = builder;
+    return self;
 }
 
 - (instancetype)lightChannel:(int)channel :(bool)enable{

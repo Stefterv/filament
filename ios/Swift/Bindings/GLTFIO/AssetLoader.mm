@@ -33,4 +33,46 @@
     return [[AssetLoader alloc] init:loader];
 }
 
+- (FilamentAsset *)createAssetFromBinary:(NSData*)bytes{
+    auto asset = nativeLoader->createAssetFromBinary((uint8_t*)bytes.bytes, (uint32_t)bytes.length);
+    return [[FilamentAsset alloc] init:asset];
+}
+
+- (FilamentAsset *)createAssetFromJson:(NSData*)bytes{
+    auto asset = nativeLoader->createAssetFromJson((uint8_t*)bytes.bytes, (uint32_t)bytes.length);
+    
+    return [[FilamentAsset alloc] init:asset];
+}
+
+- (FilamentInstance *)createInstance:(FilamentAsset *)primary{
+    auto instance = nativeLoader->createInstance((filament::gltfio::FilamentAsset*) primary.asset);
+    return [[FilamentInstance alloc] init: instance];
+}
+- (FilamentAsset *)createInstancedAsset:(NSArray *)bytes :(NSMutableArray<FilamentInstance *> *)instances{
+    auto count = [bytes count];
+    auto cppbytes = new UInt8[count];
+    
+    auto i = 0;
+    
+    for(NSNumber* byte in bytes){
+        cppbytes[i++] = [byte unsignedIntValue];
+    }
+    auto numInstances = [instances count];
+    auto cppInstances = new filament::gltfio::FilamentInstance*[numInstances];
+    
+    auto asset = nativeLoader->createInstancedAsset(cppbytes, (uint32_t)count, cppInstances, numInstances);
+    delete[] cppbytes;
+    
+    for(auto j = 0; j<numInstances; j++){
+        auto instance = cppInstances[j];
+        [instances addObject:[[FilamentInstance alloc] init:instance]];
+    }
+    
+    return [[FilamentAsset alloc] init:asset];
+}
+
+- (void)destroyAsset:(FilamentAsset *)asset{
+    nativeLoader->destroyAsset((filament::gltfio::FilamentAsset*) asset.asset);
+}
+
 @end

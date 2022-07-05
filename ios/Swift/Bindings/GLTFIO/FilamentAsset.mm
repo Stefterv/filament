@@ -17,4 +17,32 @@
     return self;
 }
 
+- (Entity)getRoot{
+    
+}
+- (Entity)popRenderable{
+    
+}
+- (Entity)popRenderables:(NSMutableArray *)entities{
+    
+}
++ (NSArray<NSNumber*>*)getEntitiesArray: (const void*) array :(unsigned long)count{
+    auto typedArray = (utils::Entity*) array;
+    auto target = [[NSMutableArray alloc] initWithCapacity:count];
+    for(auto i = 0; i<count; i++){
+        auto ent = typedArray[i];
+        auto num = utils::Entity::smuggle(ent);
+        target[i] = [[NSNumber alloc] initWithUnsignedInt: num];
+    }
+    return target;
+}
+- (NSArray<NSNumber *> *)getEntities{
+    auto ents = nativeAsset->getEntities();
+    auto count = nativeAsset->getEntityCount();
+    
+    return [FilamentAsset getEntitiesArray:ents :count];
+    
+}
+
+
 @end
