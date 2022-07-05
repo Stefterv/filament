@@ -45,7 +45,7 @@ class FilaSceneProps : ObservableObject{
         view.scene = scene
         view.camera = camera
         
-        materialProvider = glTFIO.MaterialProvider(engine)
+        materialProvider = glTFIO.MaterialProvider.createUberShaderProvider(engine)
 
         let config = glTFIO.AssetLoader.Configuration()
         config.engine = engine
