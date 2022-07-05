@@ -33,6 +33,26 @@
 - (instancetype)loadResources:(FilamentAsset *)asset{
     nativeLoader->loadResources((filament::gltfio::FilamentAsset*) asset.asset);
 }
-
+- (void)addResourceData:(NSString *)uri :(NSData *)buffer{
+    nativeLoader->addResourceData([uri UTF8String],filament::gltfio::ResourceLoader::BufferDescriptor(buffer.bytes, buffer.length));
+}
+- (bool)asyncBeginLoad:(FilamentAsset *)asset{
+    return nativeLoader->asyncBeginLoad( (filament::gltfio::FilamentAsset*) asset.asset);
+}
+- (void)asyncCancelLoad{
+    nativeLoader->asyncCancelLoad();
+}
+- (void)asyncUpdateLoad{
+    nativeLoader->asyncUpdateLoad();
+}
+- (double)asyncGetLoadProgress{
+    return nativeLoader->asyncGetLoadProgress();
+}
+- (void)evictResourceData{
+    nativeLoader->evictResourceData();
+}
+- (bool)hasResourceData:(NSString *)uri{
+    return nativeLoader->hasResourceData([uri UTF8String]);
+}
 
 @end

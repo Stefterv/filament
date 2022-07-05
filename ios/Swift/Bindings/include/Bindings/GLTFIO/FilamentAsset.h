@@ -39,7 +39,7 @@ NS_SWIFT_NAME(glTFIO.FilamentAsset)
  * Returns the number of entities written into the given array. If the given array
  * is null, returns the number of available renderables.
  */
-- (int) popRenderables: (nullable NSMutableArray*) entities;
+- (size_t) popRenderables: (nullable NSMutableArray<NSNumber *>*) entities;
 + (nonnull NSArray<NSNumber*>*) getEntitiesArray: (nonnull const void*) array :(unsigned long)count NS_SWIFT_UNAVAILABLE("Internal method");
 /**
  * Gets the list of entities, one for each glTF node.
@@ -74,7 +74,7 @@ NS_SWIFT_NAME(glTFIO.FilamentAsset)
 - (nonnull NSString*) getName: (Entity) entity;
 - (nullable NSString*) getExtras: (Entity) entity;
 - (nonnull Animator*) getAnimator;
-- (int) getSkinCount;
+- (size_t) getSkinCount;
 - (nonnull NSArray<NSString*>*) getSkinNames;
 - (nonnull NSArray<NSString*>*) getResourceUris;
 - (nonnull NSArray<NSString*>*) getMaterialVariantNames;

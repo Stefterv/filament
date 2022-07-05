@@ -9,6 +9,8 @@
 #ifndef VertexBuffer_h
 #define VertexBuffer_h
 
+
+
 @interface VertexBuffer : NSObject
 
 @property (nonatomic, readonly, nonnull) void* buffer  NS_SWIFT_UNAVAILABLE("Don't access the raw pointers");
