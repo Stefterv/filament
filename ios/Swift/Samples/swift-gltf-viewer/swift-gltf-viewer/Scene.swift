@@ -78,6 +78,12 @@ class FilaSceneProps : ObservableObject{
         
         scene.setIndirectLight(Ktx1Loader.createIndirectLight(engine, iblData, false))
         
+        let skbURL = Bundle.main.url(forResource: "default_env_ibl", withExtension: ".ktx")!
+        guard let skbData = try? Data(contentsOf: skbURL) else { return }
+        
+        let skybox = Ktx1Loader.createSkybox(engine, skbData, false)
+        scene.skybox = skybox
+        
     }
     func setClear(color: CIColor){
         let opt = Renderer.ClearOptions()
@@ -115,7 +121,7 @@ class FilaSceneProps : ObservableObject{
             view.viewport = Viewport(left: 0, bottom: 0, width: Int32(size.width), height: Int32(size.height))
             
             let origin = SCNNode()
-            origin.position = SCNVector3(0, 0, -0.2)
+            origin.position = SCNVector3(0, 0.5, 0.5)
             
             // TODO: Move to own entity
             camera.setLensProjection(50, size.width/size.height, 0.01, 10)

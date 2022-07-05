@@ -8,6 +8,7 @@
 #import <ktxreader/Ktx1Reader.h>
 #import <filament/Engine.h>
 #import <filament/IndirectLight.h>
+#import <filament/Skybox.h>
 
 @implementation Ktx1Loader
 
@@ -38,6 +39,23 @@
         .build(*nEngine)
     ;
     return [[IndirectLight alloc] init:light];
+}
+
++ (Skybox *)createSkybox:(Engine *)engine :(NSData *)buffer :(bool)srgb{
+    auto nEngine = (filament::Engine*) engine.engine;
+    auto bytes = (uint8_t*) buffer.bytes;
+    auto length = (uint32_t) buffer.length;
+    
+    auto bundle = new ktxreader::Ktx1Bundle(bytes, length);
+    
+    auto texture = ktxreader::Ktx1Reader::createTexture(nEngine, bundle, srgb);
+    
+    auto skybox = filament::Skybox::Builder()
+        .environment(texture)
+        .build(*nEngine);
+    
+    return [[Skybox alloc] init: skybox];
+    
 }
 
 @end
