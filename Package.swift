@@ -13,7 +13,7 @@ let package = Package(
     dependencies: [
     ],
     targets: [
-        .binaryTarget(name: "filament", url: "https://github.com/Stefterv/filament/releases/download/v1.24.0/filament.xcframework.zip", checksum: "778f8fdd415784c47174edea88f3679e81e437b78663024c30c6a62879488cc0")
+        .binaryTarget(name: "filament", url: "https://github.com/Stefterv/filament/releases/download/v1.24.0/filament.xcframework.zip", checksum: "424ad0f0c6469046e28fa7667aa504645fab84a4636bf9876755f0be4181c016")
     ],
     cxxLanguageStandard: .cxx20
 )
