@@ -3,6 +3,7 @@
 
 import PackageDescription
 
+let version = "1.24.0"
 let targets = [
     "filament":"424ad0f0c6469046e28fa7667aa504645fab84a4636bf9876755f0be4181c016",
     "gltfio": "d015e741db43d74ec8111f7efcdac8f554d897eb7839fd7462f52d3c6f5fb79b",
@@ -40,6 +41,6 @@ let package = Package(
     ],
     dependencies: [
     ],
-    targets: targets.map({ .binaryTarget(name: $0.key, url: "https://github.com/Stefterv/filament/releases/download/v1.24.0/\($0.key).xcframework.zip", checksum: $0.value) }),
+    targets: targets.map({ .binaryTarget(name: $0.key, url: "https://github.com/Stefterv/filament/releases/download/v\(version)/\($0.key).xcframework.zip", checksum: $0.value) }),
     cxxLanguageStandard: .cxx20
 )
