@@ -616,6 +616,7 @@ function build_ios {
         fi
 
         if [[ "${BUILD_UNIVERSAL_LIBRARIES}" == "true" ]]; then
+            rm -rf out/ios-debug/filament/lib/universal
             build/ios/create-universal-libs.sh \
                 -o out/ios-debug/filament/lib/universal \
                 out/ios-debug/filament/lib/arm64 \
@@ -638,6 +639,7 @@ function build_ios {
         fi
 
         if [[ "${BUILD_UNIVERSAL_LIBRARIES}" == "true" ]]; then
+            rm -rf out/ios-release/filament/lib/universal
             build/ios/create-universal-libs.sh \
                 -o out/ios-release/filament/lib/universal \
                 out/ios-release/filament/lib/arm64 \

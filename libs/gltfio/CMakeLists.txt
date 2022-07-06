@@ -144,6 +144,13 @@ set(DUMMY_SRC "${RESOURCE_DIR}/dummy.c")
 add_custom_command(OUTPUT ${DUMMY_SRC} COMMAND echo "//" > ${DUMMY_SRC})
 
 add_library(uberarchive ${DUMMY_SRC} ${RESGEN_SOURCE})
+if (IOS)
+    set_target_properties(
+        uberarchive
+        PROPERTIES 
+        FRAMEWORK TRUE
+    )
+endif()
 target_include_directories(uberarchive PUBLIC ${RESOURCE_DIR})
 
 # ==================================================================================================
@@ -154,6 +161,15 @@ include_directories(${PUBLIC_HDR_DIR} ${RESOURCE_DIR})
 link_libraries(math utils filament cgltf stb ktxreader geometry tsl trie uberzlib)
 
 add_library(gltfio_core STATIC ${PUBLIC_HDRS} ${SRCS})
+if (IOS)
+    set_target_properties(
+        gltfio_core
+        PROPERTIES 
+        FRAMEWORK TRUE
+        PUBLIC_HEADER "${PUBLIC_HDRS}"
+        OUTPUT_NAME "gltfio"
+    )
+endif()
 
 target_include_directories(gltfio_core PUBLIC ${PUBLIC_HDR_DIR})
 
@@ -187,6 +203,10 @@ endif()
 # Installation
 # ==================================================================================================
 
-install(TARGETS gltfio_core uberarchive ARCHIVE DESTINATION lib/${DIST_DIR})
+set(INSTALL_TYPE ARCHIVE)
+if (IOS)
+        set(INSTALL_TYPE FRAMEWORK)
+endif()
+install(TARGETS gltfio_core uberarchive ${INSTALL_TYPE} DESTINATION lib/${DIST_DIR})
 install(DIRECTORY ${PUBLIC_HDR_DIR}/gltfio DESTINATION include)
 install(FILES ${RESOURCE_DIR}/materials/uberarchive.h DESTINATION include/gltfio/materials)

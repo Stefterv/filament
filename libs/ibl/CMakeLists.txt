@@ -34,10 +34,26 @@ set(SRCS
 include_directories(${PUBLIC_HDR_DIR})
 
 add_library(${TARGET} ${PUBLIC_HDRS} ${PRIVATE_HDRS} ${SRCS})
+if (IOS)
+    set_target_properties(
+        ${TARGET}
+        PROPERTIES 
+        FRAMEWORK TRUE
+        PUBLIC_HEADER "${PUBLIC_HDRS}"
+    )
+endif()
 target_include_directories(${TARGET} PUBLIC ${PUBLIC_HDR_DIR})
 target_link_libraries(${TARGET} math utils)
 
 add_library(${TARGET}-lite ${PUBLIC_HDRS} ${PRIVATE_HDRS} ${SRCS})
+if (IOS)
+    set_target_properties(
+        ${TARGET}-lite
+        PROPERTIES 
+        FRAMEWORK TRUE
+        PUBLIC_HEADER "${PUBLIC_HDRS}"
+    )
+endif()
 target_compile_definitions(${TARGET}-lite PUBLIC -DFILAMENT_IBL_LITE=1)
 target_include_directories(${TARGET}-lite PUBLIC ${PUBLIC_HDR_DIR})
 target_link_libraries(${TARGET}-lite math utils)
@@ -57,6 +73,10 @@ endif()
 # ==================================================================================================
 # Installation
 # ==================================================================================================
-install(TARGETS ${TARGET} ARCHIVE DESTINATION lib/${DIST_DIR})
-install(TARGETS ${TARGET}-lite ARCHIVE DESTINATION lib/${DIST_DIR})
+set(INSTALL_TYPE ARCHIVE)
+if (IOS)
+        set(INSTALL_TYPE FRAMEWORK)
+endif()
+install(TARGETS ${TARGET} ${INSTALL_TYPE} DESTINATION lib/${DIST_DIR})
+install(TARGETS ${TARGET}-lite ${INSTALL_TYPE} DESTINATION lib/${DIST_DIR})
 install(DIRECTORY ${PUBLIC_HDR_DIR}/ibl DESTINATION include)

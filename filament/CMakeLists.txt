@@ -521,14 +521,12 @@ include_directories(src)
 add_library(${TARGET} STATIC ${PRIVATE_HDRS} ${PUBLIC_HDRS} ${SRCS} ${DATA_BINS})
 
 if (IOS)
-
-set_target_properties(
-     ${TARGET}
-     PROPERTIES 
-     FRAMEWORK TRUE
-     PUBLIC_HEADER ${PUBLIC_HDRS}
-)
-
+    set_target_properties(
+        ${TARGET}
+        PROPERTIES 
+        FRAMEWORK TRUE
+        PUBLIC_HEADER "${PUBLIC_HDRS}"
+    )
 endif()
 
 # specify where the public headers of this library are
