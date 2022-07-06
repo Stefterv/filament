@@ -40,6 +40,14 @@ set(SRCS src/dummy.cpp)
 include_directories(${PUBLIC_HDR_DIR})
 
 add_library(${TARGET} STATIC ${PUBLIC_HDRS} ${SRCS})
+if (IOS)
+    set_target_properties(
+        ${TARGET}
+        PROPERTIES 
+        FRAMEWORK TRUE
+        PUBLIC_HEADER "${PUBLIC_HDRS}"
+    )
+endif()
 target_compile_options(${TARGET} PRIVATE ${OPTIMIZATION_FLAGS})
 target_include_directories(${TARGET} PUBLIC ${PUBLIC_HDR_DIR})
 
@@ -47,6 +55,11 @@ target_include_directories(${TARGET} PUBLIC ${PUBLIC_HDR_DIR})
 # Installation
 # ==================================================================================================
 install(DIRECTORY ${PUBLIC_HDR_DIR}/math DESTINATION include)
+if (IOS)
+        set(INSTALL_TYPE FRAMEWORK)
+        install(TARGETS ${TARGET} ${INSTALL_TYPE} DESTINATION lib/${DIST_DIR})
+endif()
+
 
 # ==================================================================================================
 # Tests

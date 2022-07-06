@@ -669,6 +669,14 @@ add_subdirectory(${EXTERNAL}/jsmn/tnt)
 add_subdirectory(${EXTERNAL}/stb/tnt)
 add_subdirectory(${EXTERNAL}/getopt)
 
+if (IOS)
+    set_target_properties(
+        basis_transcoder civetweb dracodec meshoptimizer shaders smol-v stb zstd vkshaders
+        PROPERTIES 
+        FRAMEWORK TRUE
+    )
+endif()
+
 if (FILAMENT_BUILD_FILAMAT OR IS_HOST_PLATFORM)
     # spirv-tools must come before filamat, as filamat relies on the presence of the
     # spirv-tools_SOURCE_DIR variable.
