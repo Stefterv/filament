@@ -98,10 +98,11 @@ for FILE in "${LEADER_PATH}"/*.framework; do
         fi
     done
     
-
+    OUT_NAME=("${OUTPUT_DIR}/${LIBRARY_NAME/framework/xcframework}")
     # TODO: 
     # - Cleanup Existing File
     # - Allow for more than 2 archs
     # - Fix simulator
-    xcodebuild -create-xcframework -framework ${INPUT_FILES[0]} -framework ${INPUT_FILES[1]} -output "${OUTPUT_DIR}/${LIBRARY_NAME/framework/xcframework}"
+    xcodebuild -create-xcframework -framework ${INPUT_FILES[0]} -framework ${INPUT_FILES[1]} -output "${OUT_NAME}"
+    zip -r "${OUT_NAME}".zip "${OUT_NAME}"
 done

@@ -13,13 +13,13 @@ on:
   workflow_dispatch:
     inputs:
       platform:
-        description: 'Platform to build (desktop, web, android, ios, windows)'
+        description: "Platform to build (desktop, web, android, ios, windows)"
         required: true
-        default: 'desktop'
+        default: "desktop"
       release_tag:
-        description: 'Release tag to build (e.g., v1.13.0)'
+        description: "Release tag to build (e.g., v1.13.0)"
         required: true
-        default: 'v1.13.0'
+        default: "v1.13.0"
   release:
     types: [created]
 
@@ -151,14 +151,11 @@ jobs:
       - name: Run build script
         run: |
           cd build/ios && printf "y" | ./build.sh release
-      - name: Upload release assets
-        run: |
-          xargs -L 1 sudo pip3 install < build/common/requirements.txt
-          mv out/filament-release-ios.tgz out/filament-${TAG}-ios.tgz
-          python3 build/common/upload-assets.py ${TAG} out/*.tgz
-        env:
-          TAG: ${{ steps.git_ref.outputs.tag }}
-          GITHUB_API_KEY: ${{ secrets.GITHUB_API_KEY }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            out/ios-release/lib/universal/*.xcframework.zip
 
   build-windows:
     name: build-windows
