@@ -620,6 +620,10 @@ function build_ios {
                 -o out/ios-debug/filament/lib/universal \
                 out/ios-debug/filament/lib/arm64 \
                 out/ios-debug/filament/lib/x86_64
+            build/ios/create-universal-frameworks.sh \
+                -o out/ios-debug/filament/lib/universal \
+                out/ios-debug/filament/lib/arm64 \
+                out/ios-debug/filament/lib/x86_64
             rm -rf out/ios-debug/filament/lib/arm64
             rm -rf out/ios-debug/filament/lib/x86_64
         fi
@@ -635,6 +639,10 @@ function build_ios {
 
         if [[ "${BUILD_UNIVERSAL_LIBRARIES}" == "true" ]]; then
             build/ios/create-universal-libs.sh \
+                -o out/ios-release/filament/lib/universal \
+                out/ios-release/filament/lib/arm64 \
+                out/ios-release/filament/lib/x86_64
+            build/ios/create-universal-frameworks.sh \
                 -o out/ios-release/filament/lib/universal \
                 out/ios-release/filament/lib/arm64 \
                 out/ios-release/filament/lib/x86_64
