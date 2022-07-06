@@ -30,7 +30,8 @@ let targets = [
     "smol-v":"3e5c0c658a9d79ed6abc3c57f782431f7c1143248c68e0149ea8f86368c0961a",
     "stb":"35d6cd4964223357f7d976f48330392af2e9831d34e018cc75e0856142cd4b31",
     "viewer":"9c73c545ef87a71f7ad5a653ffb8387966f95ae47c0bb8e713782ec7bb89b651",
-    "vkshaders":"fa0e80c7b48de3bd65491929c616178b9d09bbbd12bf534dc067cd2eb4d9ceaf"
+    "vkshaders":"fa0e80c7b48de3bd65491929c616178b9d09bbbd12bf534dc067cd2eb4d9ceaf",
+    "math": "5768ffdeea82978d5291273934e2a0ed16c2f2ec63c82453c8ab88bfa6b0a1e3"
 ]
 let package = Package(
     name: "filament",
@@ -41,6 +42,8 @@ let package = Package(
     ],
     dependencies: [
     ],
+    
     targets: targets.map({ .binaryTarget(name: $0.key, url: "https://github.com/Stefterv/filament/releases/download/v\(version)/\($0.key).xcframework.zip", checksum: $0.value) }),
+    // targets: targets.map({ .binaryTarget(name: $0.key, path: "out/ios-release/filament/lib/universal/\($0.key).xcframework") }),
     cxxLanguageStandard: .cxx20
 )
