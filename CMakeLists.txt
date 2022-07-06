@@ -730,7 +730,7 @@ if (NOT CMAKE_CROSSCOMPILING)
     export(TARGETS matc cmgen filamesh mipgen resgen uberz glslminifier FILE ${IMPORT_EXECUTABLES})
 endif()
 
-if (APPLE)
+if (IOS)
     # TODO
     # - Only run these settings when applicable
     # - Make dynamic
