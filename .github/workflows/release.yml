@@ -134,7 +134,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           message: "Updating Swift Package Version to: ${{ steps.git_ref.outputs.tag }} and updating hashes"
-          add: "Package.swift"
+          add: "Test.txt"
           tag: "${{ steps.git_ref.outputs.tag }} --force"
           tag_push: "--force"
       - name: Run build script
