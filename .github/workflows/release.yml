@@ -151,11 +151,11 @@ jobs:
       - name: Run build script
         run: |
           cd build/ios && printf "y" | ./build.sh release
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - uses: AButler/upload-release-assets@v2.0
         with:
-          files: |
-            out/ios-release/lib/universal/*.xcframework.zip
+          files: "out/ios-release/filament/lib/universal/*.xcframework.zip"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          release-tag: ${{ steps.git_ref.outputs.ref }}
 
   build-windows:
     name: build-windows
