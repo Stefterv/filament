@@ -3,7 +3,7 @@
 
 import PackageDescription
 
-let version = "1.24.1"
+let version = "1.25.0"
 let targets = [
     "filament":"424ad0f0c6469046e28fa7667aa504645fab84a4636bf9876755f0be4181c016",
     "gltfio": "d015e741db43d74ec8111f7efcdac8f554d897eb7839fd7462f52d3c6f5fb79b",
