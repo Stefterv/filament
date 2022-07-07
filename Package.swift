@@ -3,35 +3,35 @@
 
 import PackageDescription
 
-let version = "1.24.1"
+let version = "v1.25.0"
 let targets = [
-    "filament":"424ad0f0c6469046e28fa7667aa504645fab84a4636bf9876755f0be4181c016",
-    "gltfio": "d015e741db43d74ec8111f7efcdac8f554d897eb7839fd7462f52d3c6f5fb79b",
-    "backend": "e292e31f25d6e5b97b4d7951dcd317cb907d06e086cdab272d066e6c70d4d372",
-    "utils": "33f983818a8705a9ff310c280fdca32dfb23e6fa1470904b6e03abe5796811d0",
-    "geometry": "0b8f320494fa3e6355166a8685c6cb7ca6b523745f3dd23bef5b245a42bec6c1",
-    "dracodec": "aa271458994b13409cd76e344c27184b558b8b9dcbe6b7a921c88bc06b680111",
-    "uberz": "536a277df76ce67bec54eb9f4b9ce4dc335f2afde500b3a5845b861bc5259440",
-    "filaflat": "f63c457c0eb298102b423085020ca5e792a9b34e3704078d579f4f53a199278c",
-    "uberarchive": "9f58684f78fe0266537d07dc5d3fa1f2f174d4174f0e993e8ff0dc2aefd1495c",
-    "ktxreader": "cf74b47bfa25b85d34bf886f228c311fb890b9dda6b600c7b7e4dddef314cc91",
-    "ibl": "2f62430922ddd99cce97876065917453e9895e3ce37911de2b340a6966971f75",
-    "zstd": "76e94bebefbf95d955d5335191366092241cf19a8b0dc97e4bc79901eb5c3322",
-    "basis_transcoder":"29dce1d96e73f4b7e333e19c7a901b9f97396b401b6e3506c24d8ab4105ac272",
-    "camutils":"7a20909ed8cf3f4b4f2aca3117f0df7bb05b02053cc4c733346ffade4ef47f7d",
-    "civetweb":"0cf12df6b7f4003d7a0c88ee6c1f11e828c926be99194aea0579eb0efd12ead8",
-    "filabridge":"0acf24043dd17395c74c72b539a879634ff5a210143092dfc95f756f57a0eb69",
-    "filamat_lite":"fb0e5f02051723e29450814346a8513be09b58bf96b0687da69f899019f8ccbd",
-    "filament-iblprefilter":"613d53690a412ad2ccbe1e750cc5a8ca4f8a09f75131233e49d84c76a540578a",
-    "filameshio":"3f605145a2a0e3bd9443f2e053274de808ae73626eb33565dca169170559241e",
-    "image":"b6a7272192e89e264a44047572edc32ff84a35446382cbbe5697522990dfd649",
-    "meshoptimizer":"cd664a4ccd8d630f5e848f88b47710dbe1b698c65599fe25d3cefee2db80f3e8",
-    "shaders":"9a3f6c73fd22d9c00beaa833b8749379424cfb2ce49198ed391a4997c9ae58ae",
-    "smol-v":"3e5c0c658a9d79ed6abc3c57f782431f7c1143248c68e0149ea8f86368c0961a",
-    "stb":"35d6cd4964223357f7d976f48330392af2e9831d34e018cc75e0856142cd4b31",
-    "viewer":"9c73c545ef87a71f7ad5a653ffb8387966f95ae47c0bb8e713782ec7bb89b651",
-    "vkshaders":"fa0e80c7b48de3bd65491929c616178b9d09bbbd12bf534dc067cd2eb4d9ceaf",
-    "math": "5768ffdeea82978d5291273934e2a0ed16c2f2ec63c82453c8ab88bfa6b0a1e3"
+    "filament":"35d1893e8fd0669cf547702d844e1118f45c0db1fa8d78cd93d6ac40231a1ba4",
+    "gltfio":"ca2e80af5a7fb03cab2797c173f9ae053717768f77eaa71607b1c5421af59b19",
+    "backend":"5b2e3b963d148272c133924ad00c304a1a9d1d551b86b467cdb2a04a51f9b20c",
+    "utils":"0c64d97329deacb677fd0f176cd5bd54883d557c1e31c34874325a2dafb7b9ba",
+    "geometry":"760ba5690d961e2cb7a07d51d602ee05c0b810508731aef7c6ae4d7e0cc3b506",
+    "dracodec":"6d78258bbff972123144476fbd829f8dc75582330c12329237d694449d4cc86d",
+    "uberz":"1f1cde7a999ab40e1585d5d20a42b7a324e8fa23044b914dfbaa18f744ebfb33",
+    "filaflat":"06207de37c1eadba010c484ab11868ad5004ed92e0a5baf48f8db9155ab3d6ac",
+    "uberarchive":"5647cfb155f0897e97bf277ceed0d98b2dc162ee572d65570ffa7a92a16e3624",
+    "ktxreader":"9cfa80e0849da30321e366de0cc9e301195afedf3c358a0367fa9eec64af3d91",
+    "ibl":"198804d659a67de30de9270280cc98bb2ca0c4e42988bfca2ee26c457a41386b",
+    "zstd":"70f1a2d13a9f1fe23e93fd4806f4691fc31f35f1376986cad826fade438a80c9",
+    "basis_transcoder":"b9c4e34072eebb10378fd22e50d3960af4f2389eb9507b6d1a886d3f2317d2fb",
+    "camutils":"0c64d97329deacb677fd0f176cd5bd54883d557c1e31c34874325a2dafb7b9ba",
+    "civetweb":"301aed1237a53edb32d99623428e35c97c499685a92fca5f1917cd02caa55780",
+    "filabridge":"7192e6bf1c5a8df24501eb52616ee5029c0b61e19c3b75b28cc3fd3af3e6f51a",
+    "filamat_lite":"ff6f2353d1f285a5b05512028596c9fb4b028b20367d4db1300d841ccbf44978",
+    "filament-iblprefilter":"7fa63ffd306d1b667a6d350d3a356299d52d7684d2f3f9e1d290637a01de333d",
+    "filameshio":"5bb2a165701d83da82adf4af2f19bfb9ebba2803c83644ed3a20ff1417f6dffe",
+    "image":"c4eb3aae4934320a1763c06edade1fa1dc426e2ab4fa6b1e437e5198ca4851c6",
+    "meshoptimizer":"101c41ab068445043078c53a8a97fc88df99252ec33d6e95053be39a4f17dbf8",
+    "shaders":"27c1457e9b916cdb614a941e4ef9ede7ba90ee089f1c50db76689734df4c995d",
+    "smol-v":"6a110dca8d8a5da18f1d4776d595efd62bdf35430dfc6cc8f0aa57d2fef76bd8",
+    "stb":"adbefe3956b14e7c433d776561ef4fbd108de2e587be16cd593dbb3fb7b92e0d",
+    "viewer":"8bd980a205ac7c16e691576b9749920572a60b876e8259cb3b414ff1bd5c9983",
+    "vkshaders":"06a1150af490bb9f3f30faefb06b3c47518636765f5874e6da0e1d5f57ee250b",
+    "math":"a39d05d66fc52660188764ccc688962972c4bf67aae5c2ef175653baf611e00f"
 ]
 let package = Package(
     name: "filament",
@@ -43,7 +43,7 @@ let package = Package(
     dependencies: [
     ],
     
-    targets: targets.map({ .binaryTarget(name: $0.key, url: "https://github.com/Stefterv/filament/releases/download/v\(version)/\($0.key).xcframework.zip", checksum: $0.value) }),
+    targets: targets.map({ .binaryTarget(name: $0.key, url: "https://github.com/Stefterv/filament/releases/download/\(version)/\($0.key).xcframework.zip", checksum: $0.value) }),
     // targets: targets.map({ .binaryTarget(name: $0.key, path: "out/ios-release/filament/lib/universal/\($0.key).xcframework") }),
     cxxLanguageStandard: .cxx20
 )

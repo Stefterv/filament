@@ -110,7 +110,6 @@ jobs:
     if: github.event_name == 'release' || github.event.inputs.platform == 'ios'
 
     steps:
-      
       - name: Decide Git ref
         id: git_ref
         run: |
@@ -124,11 +123,20 @@ jobs:
       - name: Run build script
         run: |
           cd build/ios && printf "y" | ./build.sh release
+        env:
+          TAG: ${{ steps.git_ref.outputs.tag }}
       - uses: AButler/upload-release-assets@v2.0
         with:
           files: "out/ios-release/filament/lib/universal/*.xcframework.zip;out/*.tgz"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           release-tag: ${{ steps.git_ref.outputs.tag }}
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Updating Swift Package Version to: ${{ steps.git_ref.outputs.tag }} and updating hashes"
+          add: "Package.swift"
+          tag: "${{ steps.git_ref.outputs.tag }} --force"
+          tag_push: "--force"
 
   build-windows:
     name: build-windows

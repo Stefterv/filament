@@ -653,6 +653,11 @@ function build_ios {
         fi
 
         archive_ios "Release"
+
+        if ! [[ -z "${TAG}" ]]; then
+            echo "Updating to Tag: ${TAG}"
+            sed -E -i '' 's/let version = ".+"/let version = "'$TAG\"/ Package.swift
+        fi
     fi
 }
 

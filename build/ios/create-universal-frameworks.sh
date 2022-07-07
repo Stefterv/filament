@@ -83,8 +83,10 @@ for FILE in "${LEADER_PATH}"/*.framework; do
 
     # The static library file name, like "libfilament.framework"
     LIBRARY_NAME="${FILE##*/}"
+    FRAMEWORK_NAME=$(basename $LIBRARY_NAME .framework)
+    OUT_NAME=("${LIBRARY_NAME/framework/xcframework}")
 
-    echo "Combining architectures for library: ${LIBRARY_NAME} ${LIBRARY_NAME/framework/xcframework}"
+    echo "Combining architectures for library: ${LIBRARY_NAME} ${OUT_NAME} ${FRAMEWORK_NAME}"
 
 
     INPUT_FILES=("${LEADER_PATH}/${LIBRARY_NAME}")
@@ -98,11 +100,20 @@ for FILE in "${LEADER_PATH}"/*.framework; do
         fi
     done
     
-    OUT_NAME=("${OUTPUT_DIR}/${LIBRARY_NAME/framework/xcframework}")
+    OUT_NAME=("${LIBRARY_NAME/framework/xcframework}")
+    
     # TODO: 
     # - Cleanup Existing File
     # - Allow for more than 2 archs
     # - Fix simulator
-    xcodebuild -create-xcframework -framework ${INPUT_FILES[0]} -framework ${INPUT_FILES[1]} -output "${OUT_NAME}"
-    zip -r "${OUT_NAME}".zip "${OUT_NAME}"
+    xcodebuild -create-xcframework -framework ${INPUT_FILES[0]} -framework ${INPUT_FILES[1]} -output "${OUTPUT_DIR}/${OUT_NAME}"
+    pushd "${OUTPUT_DIR}" > /dev/null
+
+    zip -r "${OUT_NAME}".zip "${OUT_NAME}" > /dev/null
+    CHECKSUM=$(swift package compute-checksum "${OUT_NAME}.zip")
+    popd > /dev/null
+    
+
+    sed -E -i '' 's/'$FRAMEWORK_NAME'":".+"/'$FRAMEWORK_NAME'":"'$CHECKSUM'"'/ Package.swift
+
 done
