@@ -85,6 +85,14 @@ include_directories(src)
 
 # we're building a library
 add_library(${TARGET} STATIC ${PRIVATE_HDRS} ${PUBLIC_HDRS} ${SRCS})
+if (IOS)
+    set_target_properties(
+        ${TARGET}
+        PROPERTIES 
+        FRAMEWORK TRUE
+        PUBLIC_HEADER "${PUBLIC_HDRS}"
+    )
+endif()
 
 # specify where the public headers of this library are
 target_include_directories(${TARGET} PUBLIC ${PUBLIC_HDR_DIR})
@@ -132,5 +140,8 @@ target_link_libraries(${TARGET} PRIVATE
 # Installation
 # ==================================================================================================
 set(INSTALL_TYPE ARCHIVE)
+if (IOS)
+        set(INSTALL_TYPE FRAMEWORK)
+endif()
 install(TARGETS ${TARGET} ${INSTALL_TYPE} DESTINATION lib/${DIST_DIR})
 install(DIRECTORY ${PUBLIC_HDR_DIR}/filament-iblprefilter DESTINATION include)

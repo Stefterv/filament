@@ -21,6 +21,14 @@ set(SRCS
 include_directories(${PUBLIC_HDR_DIR})
 
 add_library(${TARGET} ${HDRS} ${SRCS})
+if (IOS)
+    set_target_properties(
+        ${TARGET}
+        PROPERTIES 
+        FRAMEWORK TRUE
+        PUBLIC_HEADER "${HDRS}"
+    )
+endif()
 target_include_directories(${TARGET} PUBLIC ${PUBLIC_HDR_DIR})
 
 target_link_libraries(${TARGET} filabridge utils)
@@ -34,4 +42,8 @@ endif()
 # ==================================================================================================
 # We do not need filaflat headers in the install directory
 # install(DIRECTORY ${PUBLIC_HDR_DIR}/filaflat DESTINATION include)
-install(TARGETS ${TARGET} ARCHIVE DESTINATION lib/${DIST_DIR})
+set(INSTALL_TYPE ARCHIVE)
+if (IOS)
+        set(INSTALL_TYPE FRAMEWORK)
+endif()
+install(TARGETS ${TARGET} ${INSTALL_TYPE} DESTINATION lib/${DIST_DIR})

@@ -87,11 +87,27 @@ include_directories(${CMAKE_BINARY_DIR})
 
 # Filamat
 add_library(${TARGET} STATIC ${HDRS} ${PRIVATE_HDRS} ${SRCS})
+if (IOS)
+    set_target_properties(
+        ${TARGET}
+        PROPERTIES 
+        FRAMEWORK TRUE
+        PUBLIC_HEADER "${HDRS}"
+    )
+endif()
 target_include_directories(${TARGET} PUBLIC ${PUBLIC_HDR_DIR})
 target_link_libraries(${TARGET} shaders filabridge utils smol-v)
 
 # Filamat Lite
 add_library(filamat_lite STATIC ${HDRS} ${LITE_PRIVATE_HDRS} ${LITE_SRCS})
+if (IOS)
+    set_target_properties(
+        ${TARGET}_lite
+        PROPERTIES 
+        FRAMEWORK TRUE
+        PUBLIC_HEADER "${HDRS}"
+    )
+endif()
 target_include_directories(filamat_lite PUBLIC ${PUBLIC_HDR_DIR})
 target_link_libraries(filamat_lite shaders filabridge utils)
 
@@ -149,7 +165,12 @@ set(FILAMAT_LIB_NAME ${CMAKE_STATIC_LIBRARY_PREFIX}filamat${CMAKE_STATIC_LIBRARY
 install(FILES "${FILAMAT_COMBINED_OUTPUT}" DESTINATION lib/${DIST_DIR} RENAME ${FILAMAT_LIB_NAME})
 install(DIRECTORY ${PUBLIC_HDR_DIR}/filamat DESTINATION include)
 
-install(TARGETS filamat_lite ARCHIVE DESTINATION lib/${DIST_DIR})
+
+set(INSTALL_TYPE ARCHIVE)
+if (IOS)
+        set(INSTALL_TYPE FRAMEWORK)
+endif()
+install(TARGETS ${TARGET}_lite ${INSTALL_TYPE} DESTINATION lib/${DIST_DIR})
 
 # ==================================================================================================
 # Tests
