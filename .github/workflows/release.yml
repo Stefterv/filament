@@ -135,6 +135,7 @@ jobs:
           add: "Package.swift"
           tag: "${{ steps.git_ref.outputs.tag }} --force"
           tag_push: "--force"
+          push: origin HEAD:release
 
   build-windows:
     name: build-windows
