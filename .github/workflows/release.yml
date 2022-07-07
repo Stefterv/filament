@@ -129,14 +129,6 @@ jobs:
           echo ::set-output name=ref::${REF}
           echo ::set-output name=tag::${TAG}
       - uses: actions/checkout@v3.0.0
-      - run: echo "${{ steps.git_ref.outputs.tag }}" > Test.txt
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "Updating Swift Package Version to: ${{ steps.git_ref.outputs.tag }} and updating hashes"
-          add: "Test.txt"
-          tag: "${{ steps.git_ref.outputs.tag }} --force"
-          tag_push: "--force"
       - name: Run build script
         run: |
           cd build/ios && printf "y" | ./build.sh release
@@ -154,6 +146,7 @@ jobs:
           add: "Package.swift"
           tag: "${{ steps.git_ref.outputs.tag }} --force"
           tag_push: "--force"
+          push: origin HEAD:release
 
   build-windows:
     name: build-windows
