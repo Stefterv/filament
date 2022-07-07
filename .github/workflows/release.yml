@@ -129,9 +129,7 @@ jobs:
           echo ::set-output name=ref::${REF}
           echo ::set-output name=tag::${TAG}
       - uses: actions/checkout@v3.0.0
-      - run: sed -E -i '' 's/let version = ".+"/let version = "'$TAG\"/ Package.swift
-        env:
-          TAG: ${{ steps.git_ref.outputs.tag }}
+      - run: echo "${{ steps.git_ref.outputs.tag }}" > Test.txt
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
