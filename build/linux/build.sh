@@ -36,4 +36,4 @@ source `dirname $0`/ci-common.sh
 source `dirname $0`/../common/build-common.sh
 
 pushd `dirname $0`/../.. > /dev/null
-./build.sh -c $RUN_TESTS $GENERATE_ARCHIVES $BUILD_DEBUG $BUILD_RELEASE
+./build.sh $RUN_TESTS $GENERATE_ARCHIVES $BUILD_DEBUG $BUILD_RELEASE
