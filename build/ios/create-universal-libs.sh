@@ -99,3 +99,33 @@ for FILE in "${LEADER_PATH}"/*.a; do
 
     lipo "${INPUT_FILES[@]}" -create -output "${OUTPUT_DIR}/${LIBRARY_NAME}"
 done
+
+for FILE in "${LEADER_PATH}"/*.a; do
+    [ -f "${FILE}" ] || continue
+
+    LIBRARY_NAME=$(basename "${FILE%.*}")
+
+    echo "Creating xcframework for library: ${LIBRARY_NAME}"
+    INPUT_FILES=("-library ${LEADER_PATH}/${LIBRARY_NAME}.a")
+
+    if [[ $LIBRARY_NAME == "libfilament" ]]; then
+        echo "Adding headers for ${LIBRARY_NAME}"
+        INPUT_FILES+=("-headers ${LEADER_PATH}../../../include")
+    fi
+
+    for ARCH_PATH in "${PATHS[@]:1}"; do
+        THIS_FILE="${ARCH_PATH}/${LIBRARY_NAME}.a"
+        if [[ -f "${THIS_FILE}" ]]; then
+            INPUT_FILES+=(" -library ${THIS_FILE}")
+        else
+            echo "Error: ${THIS_FILE} does not exist."
+            exit 1
+        fi
+    done
+
+    echo "${INPUT_FILES[@]}"
+
+    eval "xcodebuild -create-xcframework ${INPUT_FILES[@]} -output ${OUTPUT_DIR}/${LIBRARY_NAME}.xcframework"
+done
+
+cp ios/SwiftPackageManager/Package.swift ${OUTPUT_DIR}/../../Package.swift
